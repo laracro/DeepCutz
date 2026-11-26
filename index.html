@@ -168,7 +168,7 @@ footer { color: var(--muted); font-size: 0.8rem; text-align: center; }
     <span><i style="background:var(--grail)"></i>💎 Holy Grail</span>
     <span><i style="background:var(--miss)"></i>🔇 Dead wax</span>
   </div>
-  <footer>One answer per track, 30 seconds on the clock. Any correct answer scores; the fewer diggers who'd name it, the more it's worth. Rarity figures are estimates.</footer>
+  <footer>One answer per track, 30 seconds on the clock. Any correct answer scores; the fewer listeners who'd name it, the more it's worth. Rarity figures are estimates.</footer>
 </div>
 
 <script>
@@ -2791,7 +2791,7 @@ function renderReveal(p, pk) {
   const top = p.byPop.slice(0, 4), deep = p.byPop.slice(-4).reverse();
   const li = a => `<li class="${pk.name === a.name ? "you" : ""}"><span>${esc(a.name)}</span><span>${fmtPct(a.pct)}</span></li>`;
   const head = pk.name
-    ? `<h3>${esc(pk.name)}</h3><p>${EMO[pk.tier]} ${TIER[pk.tier]} · named by about ${fmtPct(pk.pct)} of diggers${pk.timeout ? " · beat the buzzer" : ` · ${pk.secs}s`}</p>`
+    ? `<h3>${esc(pk.name)}</h3><p>${EMO[pk.tier]} ${TIER[pk.tier]} · named by about ${fmtPct(pk.pct)} of listeners${pk.timeout ? " · beat the buzzer" : ` · ${pk.secs}s`}</p>`
     : `<h3>${pk.timeout && !pk.input ? "Time's up" : pk.input ? `"${esc(pk.input)}" missed` : "Passed"}</h3><p>${EMO.miss} Dead wax. No points on this track.</p>`;
   $("stage").innerHTML = `
     <div class="meta"><span>Track ${SLOT[game.i]}</span><span class="cat">${p.cat}</span></div>
