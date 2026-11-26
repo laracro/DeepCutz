@@ -187,6 +187,23 @@ footer { color: var(--muted); font-size: 0.8rem; text-align: center; }
 @keyframes notefly { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); } 15% { opacity: 1; }
   100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--r)) scale(1.1); } }
 @keyframes scratch { 0%, 100% { translate: 0; } 15% { translate: -7px 0; } 30% { translate: 6px 0; } 45% { translate: -5px 0; } 60% { translate: 4px 0; } 75% { translate: -2px 0; } }
+/* Streak chip, hints, stats and share card */
+.streak { color: var(--accent); margin-left: 8px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.hintbox { margin: -6px 0 0; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; background: var(--bg); color: var(--muted); font-size: 0.92rem; }
+.hintbox code { font: 700 1rem var(--f-mono); color: var(--ink); letter-spacing: 0.12em; overflow-wrap: anywhere; }
+.btn:disabled { opacity: .5; cursor: default; }
+.card { margin: 0; width: min(100%, 340px); }
+.card img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); }
+.stats { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stats div { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; border-radius: 10px; background: var(--bg); }
+.stats b { font: 800 1.5rem/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+.stats span { font: 700 .64rem var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.dist { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+.dist .bar { display: flex; gap: 2px; height: 12px; }
+.dist .bar i { border-radius: 4px; min-width: 4px; }
+.dist .lbl { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 12px; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stats-note { margin: 0; font-size: .8rem; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .disc.spin, .graph .b, .badge, .note, .sleeve { animation: none !important; } * { transition: none !important; } }
 </style>
 </head>
@@ -205,7 +222,7 @@ footer { color: var(--muted); font-size: 0.8rem; text-align: center; }
     </div>
   </header>
 
-  <div class="strip"><span id="catno">DCZ-0001</span><span>Score <b id="score">0</b> / 700</span></div>
+  <div class="strip"><span><span id="catno">DCZ-0001</span><span class="streak" id="streak"></span></span><span>Score <b id="score">0</b> / 700</span></div>
   <div class="tracks" id="tracks"></div>
 
   <main class="sleeve" id="stage" aria-live="polite"></main>
@@ -3460,6 +3477,7 @@ function render() {
   $("m-free").setAttribute("aria-pressed", game.mode === "free");
   $("catno").textContent = game.mode === "daily" ? "DCZ-" + String(game.no).padStart(4, "0") + " · Daily" : "DCZ-JAM · Jam session";
   $("score").textContent = total();
+  const cs = curStreak(getStats()); $("streak").textContent = cs ? `🔥 ${cs}-day streak` : "";
   $("tracks").innerHTML = SLOT.map((s, k) => {
     const pk = game.picks[k];
     return `<div class="trk ${k === game.i && !pk ? "now" : ""}" ${pk ? `data-t="${pk.tier}"` : ""}><i></i>${s}</div>`;
@@ -3477,7 +3495,11 @@ function render() {
       <button class="btn primary" type="submit">Drop the needle</button>
     </form>
     <p class="err" id="err"></p>
-    <div><button class="btn ghost" id="skip" type="button">Pass on this track</button></div>`;
+    <div class="actions"><button class="btn ghost" id="skip" type="button">Pass on this track</button><button class="btn ghost" id="hintbtn" type="button">💡 Hint (halves points)</button></div>
+    <p class="hintbox" id="hintbox" hidden></p>`;
+  const showHint = () => { $("hintbox").innerHTML = `One answer that fits: <code>${esc(maskName(hintFor(p, game.i)))}</code>`; $("hintbox").hidden = false; $("hintbtn").disabled = true; };
+  if (game.hinted) showHint();
+  $("hintbtn").addEventListener("click", () => { game.hinted = true; save(); showHint(); $("ans").focus({ preventScroll: true }); });
   const inp = $("ans"); inp.focus({ preventScroll: true });
   let tries = 0;
   $("f").addEventListener("submit", e => {
@@ -3505,6 +3527,7 @@ function commit(pick) {
   stopTimer();
   pick.secs = game.deadline ? Math.min(LIMIT, Math.max(0, Math.round((Date.now() - (game.deadline - LIMIT * 1000)) / 1000))) : LIMIT;
   game.deadline = null;
+  if (game.hinted) { pick.hint = true; pick.pts = Math.round(pick.pts / 2); game.hinted = false; }
   $("disc").classList.add("spin");
   game.picks[game.i] = pick; game.revealed = true; save();
   setTimeout(() => { $("disc").classList.remove("spin"); render(); }, 550);
@@ -3519,7 +3542,7 @@ function renderReveal(p, pk) {
     + (youI >= 0 ? `<span class="you-mark" style="left:${((youI + 0.5) / p.byPop.length * 100).toFixed(2)}%;bottom:calc(${hOf(p.byPop[youI]).toFixed(1)} * 0.65px + 4px)">You</span>` : "");
   const li = a => `<li class="${pk.name === a.name ? "you" : ""}"><span>${esc(a.name)}</span><span>${fmtPct(a.pct)}</span></li>`;
   const head = pk.name
-    ? `<h3>${esc(pk.name)}</h3><p>${EMO[pk.tier]} ${TIER[pk.tier]} · named by about ${fmtPct(pk.pct)} of listeners${pk.timeout ? " · beat the buzzer" : ` · ${pk.secs}s`}</p>`
+    ? `<h3>${esc(pk.name)}</h3><p>${EMO[pk.tier]} ${TIER[pk.tier]} · named by about ${fmtPct(pk.pct)} of listeners${pk.timeout ? " · beat the buzzer" : ` · ${pk.secs}s`}${pk.hint ? " · hint used, points halved" : ""}</p>`
     : `<h3>${pk.timeout && !pk.input ? "Time's up" : pk.input ? `"${esc(pk.input)}" missed` : "Passed"}</h3><p>${EMO.miss} Dead wax. No points on this track.</p>`;
   $("stage").innerHTML = `
     <div class="meta"><span>Track ${SLOT[game.i]}</span><span class="cat">${p.cat}</span></div>
@@ -3592,6 +3615,97 @@ function react(pk) {
   }
 }
 
+// ---------- hints ----------
+function hintFor(p, idx) {
+  const r = rng((game.mode === "daily" ? game.no * 31 : 7) + game.set[idx] * 101);
+  const pool = p.answers.filter(a => a.tier === "bside" || a.tier === "deep");
+  const from = pool.length ? pool : p.byPop.slice(Math.min(2, p.byPop.length - 1));
+  return from[Math.floor(r() * from.length)].name.split(" · ")[0];
+}
+function maskName(s) { return s.split(" ").map(w => w.replace(/[\p{L}\p{N}]/gu, (c, i) => i === w.search(/[\p{L}\p{N}]/u) ? c : "_")).join("  "); }
+
+// ---------- stats & streaks (daily games only, this device) ----------
+const SKEY = "deepcutz-stats";
+function getStats() { return Object.assign({ played: 0, streak: 0, best: 0, bestScore: 0, total: 0, grails: 0, lastDay: null, dist: {} }, store.get(SKEY) || {}); }
+function curStreak(s) { return s.lastDay === dayNo || s.lastDay === dayNo - 1 ? s.streak : 0; }
+function recordDaily() {
+  if (game.mode !== "daily" || game.recorded) return;
+  const s = getStats();
+  if (s.lastDay !== game.no) {
+    s.streak = s.lastDay === game.no - 1 ? s.streak + 1 : 1;
+    s.best = Math.max(s.best, s.streak);
+    s.played++; const t = total(); s.total += t; s.bestScore = Math.max(s.bestScore, t);
+    game.picks.forEach(x => { s.dist[x.tier] = (s.dist[x.tier] || 0) + 1; if (x.tier === "grail") s.grails++; });
+    s.lastDay = game.no; store.set(SKEY, s);
+  }
+  game.recorded = true; save();
+  const cs = curStreak(s); $("streak").textContent = cs ? `🔥 ${cs}-day streak` : "";
+}
+
+// ---------- share card: a record with one groove ring per track ----------
+function drawCard(t) {
+  const c = document.createElement("canvas"); c.width = 1080; c.height = 1250;
+  const x = c.getContext("2d"), css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim();
+  const disp = '"Bricolage Grotesque", "Arial Black", sans-serif', mono = '"JetBrains Mono", ui-monospace, monospace';
+  x.fillStyle = v("--bg"); x.fillRect(0, 0, c.width, c.height);
+  // title
+  x.textAlign = "left"; x.textBaseline = "alphabetic"; x.font = `800 84px ${disp}`;
+  const w1 = x.measureText("Deep").width, w2 = x.measureText("Cutz").width, x0 = (c.width - w1 - w2) / 2;
+  x.fillStyle = v("--ink"); x.fillText("Deep", x0, 128); x.fillStyle = v("--accent"); x.fillText("Cutz", x0 + w1, 128);
+  x.textAlign = "center"; x.font = `700 30px ${mono}`; x.fillStyle = v("--muted");
+  x.fillText(game.mode === "daily" ? `DCZ-${String(game.no).padStart(4, "0")} · DAILY` : "JAM SESSION", 540, 180);
+  // disc
+  const cx = 540, cy = 650, R = 440, rIn = 175, rOut = 425, w = (rOut - rIn) / 7;
+  x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.fillStyle = "#14172A"; x.fill();
+  const col = { hit: v("--hit"), bside: v("--bside"), deep: v("--deep"), grail: v("--grail"), miss: "#2C3150" };
+  game.picks.forEach((p, k) => {
+    const r1 = rOut - k * w, r2 = r1 - w + 5;
+    x.beginPath(); x.arc(cx, cy, r1, 0, Math.PI * 2); x.arc(cx, cy, r2, 0, Math.PI * 2, true);
+    x.fillStyle = col[p.tier]; x.fill();
+  });
+  x.lineWidth = 1; x.strokeStyle = "rgba(0,0,0,0.22)";
+  for (let r = rIn; r <= R - 4; r += 3.2) { x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.stroke(); }
+  if (x.createConicGradient) {
+    const g = x.createConicGradient(0.35, cx, cy);
+    [[0, 0], [0.05, .22], [0.12, 0], [0.5, 0], [0.55, .22], [0.62, 0], [1, 0]].forEach(([o, a]) => g.addColorStop(o, `rgba(255,255,255,${a})`));
+    x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.fillStyle = g; x.fill();
+  }
+  // label
+  x.beginPath(); x.arc(cx, cy, 160, 0, Math.PI * 2); x.fillStyle = v("--accent"); x.fill();
+  x.fillStyle = "#FFFFFF"; x.font = `800 30px ${mono}`;
+  x.fillText(game.mode === "daily" ? `#${game.no}` : "JAM", cx, cy - 72);
+  x.font = `700 22px ${mono}`; x.fillText("DEEPCUTZ", cx, cy - 34);
+  x.font = `800 96px ${disp}`; x.fillText(String(t), cx, cy + 100);
+  x.font = `700 24px ${mono}`; x.fillText("/ 700", cx, cy + 134);
+  x.beginPath(); x.arc(cx, cy, 9, 0, Math.PI * 2); x.fillStyle = "#14172A"; x.fill();
+  // footer
+  x.fillStyle = v("--ink"); x.font = `800 46px ${disp}`; x.fillText(`${RANK_EMO[rankOf(t)]} ${rankOf(t)}`, 540, 1160);
+  x.font = `52px system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif`; x.fillText(game.picks.map(p => EMO[p.tier]).join(" "), 540, 1225);
+  return c;
+}
+function wireCard(t) {
+  const img = $("cardimg"), toast = $("toast");
+  let canvas = null, blobP = null;
+  const build = () => { canvas = drawCard(t); img.src = canvas.toDataURL("image/png"); blobP = new Promise(res => canvas.toBlob(res, "image/png")); };
+  build();
+  try { document.fonts && document.fonts.ready.then(build); } catch {}
+  const fallback = "Press and hold (or right-click) the record to save or copy it.";
+  $("copyimg").addEventListener("click", () => {
+    try {
+      navigator.clipboard.write([new ClipboardItem({ "image/png": blobP })])
+        .then(() => toast.textContent = "Image copied. Paste it anywhere.", () => toast.textContent = fallback);
+    } catch { toast.textContent = fallback; }
+  });
+  blobP.then(blob => {
+    try {
+      const file = new File([blob], `deepcutz-${game.no || "jam"}.png`, { type: "image/png" });
+      if (!navigator.canShare || !navigator.canShare({ files: [file] })) return;
+      const b = $("shareimg"); if (!b) return; b.hidden = false;
+      b.addEventListener("click", () => navigator.share({ files: [file], text: shareText(t) }).catch(() => {}));
+    } catch {}
+  });
+}
+
 function rankOf(t) { return t >= 520 ? "Hall of Famer" : t >= 400 ? "Record collector" : t >= 280 ? "Liner-note reader" : t >= 150 ? "Radio regular" : "Top 40 tourist"; }
 const RANK_EMO = { "Hall of Famer": "👑", "Record collector": "🏆", "Liner-note reader": "📖", "Radio regular": "🎙️", "Top 40 tourist": "🧳" };
 function shareText(t) {
@@ -3605,20 +3719,41 @@ function shareText(t) {
 function renderFinal() {
   const t = total();
   const share = shareText(t);
+  recordDaily();
+  const st = getStats(), cur = curStreak(st);
+  const dist = ["grail", "deep", "bside", "hit", "miss"].map(k => [k, st.dist[k] || 0]).filter(([, n]) => n);
+  const dsum = dist.reduce((s, [, n]) => s + n, 0);
   $("stage").classList.add("final");
   $("stage").innerHTML = `
     <div class="rank">${rankOf(t)}</div>
     <div class="big">${t}<small> / 700</small></div>
+    <figure class="card"><img id="cardimg" alt="Your DeepCutz record: ${t} out of 700, one groove ring per track coloured by rarity"></figure>
+    <div class="row">
+      <button class="btn primary" id="copy" type="button">Copy result</button>
+      <button class="btn ghost" id="copyimg" type="button">Copy image</button>
+      <button class="btn ghost" id="shareimg" type="button" hidden>Share image</button>
+      <button class="btn ghost" id="again" type="button">Jam session</button>
+    </div>
+    <p class="toast" id="toast">${game.mode === "daily" ? "New tracks drop at midnight. Same time tomorrow?" : ""}</p>
+    <div class="stats">
+      <div><b>${st.played}</b><span>Played</span></div>
+      <div><b>${cur}</b><span>Streak 🔥</span></div>
+      <div><b>${st.best}</b><span>Best streak</span></div>
+      <div><b>${st.bestScore}</b><span>Best score</span></div>
+      <div><b>${st.played ? Math.round(st.total / st.played) : 0}</b><span>Average</span></div>
+      <div><b>${st.grails}</b><span>Holy Grails 💎</span></div>
+    </div>
+    ${dsum ? `<div class="dist" aria-label="All your daily answers by tier">
+      <div class="bar">${dist.map(([k, n]) => `<i title="${TIER[k]}: ${n}" style="flex:${n};background:var(--${k})"></i>`).join("")}</div>
+      <div class="lbl">${dist.map(([k, n]) => `<span>${EMO[k]} ${TIER[k]} ${n}</span>`).join("")}</div>
+    </div>` : ""}
+    <p class="stats-note">${game.mode === "daily" ? "Stats count daily games and live on this device." : "Jam sessions don't count toward your stats."}</p>
     <div class="recap">${game.picks.map((x, k) => {
       const p = CRATE[game.set[k]];
       return `<div><span class="no">${SLOT[k]}</span><span>${x.name ? esc(x.name) : "<span style='color:var(--muted)'>No answer</span>"}<em>${esc(p.q)}</em></span><span class="pts">+${x.pts}</span></div>`;
     }).join("")}</div>
-    <pre class="share" aria-label="Shareable result">${esc(share)}</pre>
-    <div class="row">
-      <button class="btn primary" id="copy" type="button">Copy result</button>
-      <button class="btn ghost" id="again" type="button">Jam session</button>
-    </div>
-    <p class="toast" id="toast">${game.mode === "daily" ? "New tracks drop at midnight. Same time tomorrow?" : ""}</p>`;
+`;
+  wireCard(t);
   $("copy").addEventListener("click", () => {
     const done = () => $("toast").textContent = "Copied. Paste it in your group chat.";
     try { navigator.clipboard.writeText(share).then(done, () => $("toast").textContent = share); } catch { $("toast").textContent = share; }
