@@ -152,7 +152,7 @@ footer { color: var(--muted); font-size: 0.8rem; text-align: center; }
     </div>
     <div class="mode" role="group" aria-label="Game mode">
       <button id="m-daily" aria-pressed="true">Daily</button>
-      <button id="m-free" aria-pressed="false">Free dig</button>
+      <button id="m-free" aria-pressed="false">Jam session</button>
     </div>
   </header>
 
@@ -2735,7 +2735,7 @@ const total = () => game.picks.reduce((s, x) => s + x.pts, 0);
 function render() {
   $("m-daily").setAttribute("aria-pressed", game.mode === "daily");
   $("m-free").setAttribute("aria-pressed", game.mode === "free");
-  $("catno").textContent = game.mode === "daily" ? "DCZ-" + String(game.no).padStart(4, "0") + " · Daily" : "DCZ-FREE · Practice";
+  $("catno").textContent = game.mode === "daily" ? "DCZ-" + String(game.no).padStart(4, "0") + " · Daily" : "DCZ-JAM · Jam session";
   $("score").textContent = total();
   $("tracks").innerHTML = SLOT.map((s, k) => {
     const pk = game.picks[k];
@@ -2763,7 +2763,7 @@ function render() {
     const a = match(p, v);
     if (!a) {
       tries++;
-      if (tries < 2) { $("err").textContent = `"${v}" isn't in the crate. Check the spelling, or try once more.`; inp.select(); return; }
+      if (tries < 2) { $("err").textContent = `"${v}" isn't on the setlist. Check the spelling, or take it from the top once more.`; inp.select(); return; }
       return commit({ input: v, name: null, pct: 0, pts: 0, tier: "miss" });
     }
     commit({ input: v, name: a.name, pct: a.pct, pts: a.pts, tier: a.tier });
@@ -2799,25 +2799,25 @@ function renderReveal(p, pk) {
       <p class="hint" style="margin:0">${esc(p.q)}</p>
       <div class="verdict"><div class="badge" data-t="${pk.tier}">+${pk.pts}</div><div>${head}</div></div>
       <div class="cols">
-        <div><h4>Most named</h4><ol>${top.map(li).join("")}</ol></div>
-        <div><h4>Deepest in the crate</h4><ol>${deep.map(li).join("")}</ol></div>
+        <div><h4>Greatest hits</h4><ol>${top.map(li).join("")}</ol></div>
+        <div><h4>B-sides &amp; rarities</h4><ol>${deep.map(li).join("")}</ol></div>
       </div>
-      <p class="hint" style="margin:0">${p.answers.length} answers in this crate.</p>
+      <p class="hint" style="margin:0">${p.answers.length} answers on the setlist.</p>
       <div><button class="btn primary" id="next" type="button">${game.i === 6 ? "See your record" : "Next track"}</button></div>
     </div>`;
   $("next").focus({ preventScroll: true });
   $("next").addEventListener("click", () => { game.i++; game.revealed = false; save(); render(); });
 }
 
-function rankOf(t) { return t >= 520 ? "Crate legend" : t >= 400 ? "Record collector" : t >= 280 ? "Liner-note reader" : t >= 150 ? "Radio regular" : "Top 40 tourist"; }
-const RANK_EMO = { "Crate legend": "👑", "Record collector": "🏆", "Liner-note reader": "📖", "Radio regular": "🎙️", "Top 40 tourist": "🧳" };
+function rankOf(t) { return t >= 520 ? "Hall of Famer" : t >= 400 ? "Record collector" : t >= 280 ? "Liner-note reader" : t >= 150 ? "Radio regular" : "Top 40 tourist"; }
+const RANK_EMO = { "Hall of Famer": "👑", "Record collector": "🏆", "Liner-note reader": "📖", "Radio regular": "🎙️", "Top 40 tourist": "🧳" };
 function shareText(t) {
   const row = a => a.map(x => EMO[x.tier]).join("");
   let streak = 0, run = 0;
   game.picks.forEach(x => { run = (x.tier === "deep" || x.tier === "grail") ? run + 1 : 0; streak = Math.max(streak, run); });
   const secs = game.picks.reduce((s, x) => s + (x.secs || 0), 0);
   const grails = game.picks.filter(x => x.tier === "grail").length;
-  return `🎧 DeepCutz ${game.mode === "daily" ? "#" + game.no : "free dig"} · ${t}/700\n${row(game.picks)}`;
+  return `🎧 DeepCutz ${game.mode === "daily" ? "#" + game.no : "jam session"} · ${t}/700\n${row(game.picks)}`;
 }
 function renderFinal() {
   const t = total();
@@ -2833,9 +2833,9 @@ function renderFinal() {
     <pre class="share" aria-label="Shareable result">${esc(share)}</pre>
     <div class="row">
       <button class="btn primary" id="copy" type="button">Copy result</button>
-      <button class="btn ghost" id="again" type="button">Free dig</button>
+      <button class="btn ghost" id="again" type="button">Jam session</button>
     </div>
-    <p class="toast" id="toast">${game.mode === "daily" ? "A new daily crate drops at midnight." : ""}</p>`;
+    <p class="toast" id="toast">${game.mode === "daily" ? "New tracks drop at midnight. Same time tomorrow?" : ""}</p>`;
   $("copy").addEventListener("click", () => {
     const done = () => $("toast").textContent = "Copied. Paste it in your group chat.";
     try { navigator.clipboard.writeText(share).then(done, () => $("toast").textContent = share); } catch { $("toast").textContent = share; }
