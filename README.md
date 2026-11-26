@@ -14,4 +14,7 @@ It's a single static file. Open `index.html` in a browser, or host it on any sta
 
 ## Notes
 
+Every question is either closed (a complete answer set, like the tracks on one album or a band's members) or broad with a list of roughly 100+ answers, so correct answers are rarely rejected.
+
+
 Rarity percentages are hand-estimated, not from real player data. Questions live in the `CRATE` array in `index.html`; each answer line is `weight Title|alias|alias ~ Artist`.

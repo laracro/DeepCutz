@@ -174,7 +174,7 @@ footer { color: var(--muted); font-size: 0.8rem; text-align: center; }
 <script>
 // Each prompt: weights are estimated popularity (how often players would name it). Aliases after "|".
 const CRATE = [
- {cat:"Albums", q:"Name a Beatles studio album", d:`
+ {cat:"Albums", q:"A Beatles studio album", d:`
 3 Please Please Me
 2 With the Beatles
 6 A Hard Day's Night
@@ -188,41 +188,17 @@ const CRATE = [
 3 Yellow Submarine
 22 Abbey Road
 9 Let It Be`},
- {cat:"Songs", q:"Name a song by Prince", d:`
+ {cat:"Albums", q:"A song on Prince's album Purple Rain", d:`
 30 Purple Rain
-15 When Doves Cry
-10 Kiss
-9 1999
-9 Little Red Corvette
-7 Raspberry Beret
-5 Let's Go Crazy
-3 Sign o' the Times|sign of the times
-2 I Would Die 4 U|i would die for you
-2 Cream
-2 Diamonds and Pearls
-1 Batdance
-1.5 U Got the Look|you got the look
-1 Controversy
-1 I Wanna Be Your Lover
-1.5 Darling Nikki
-1.5 The Most Beautiful Girl in the World
-2 Nothing Compares 2 U|nothing compares to you
-1 Pop Life
-0.8 Alphabet St.|alphabet street
-0.8 Gett Off
-0.6 Sexy MF
-0.6 Erotic City
-0.5 Starfish and Coffee
-0.3 Mountains
-0.5 Thieves in the Temple
-0.6 7
-0.8 Delirious
-0.4 Uptown
-0.4 Paisley Park
-0.8 Take Me with U|take me with you
-0.5 Computer Blue
-0.7 The Beautiful Ones`},
- {cat:"Instruments", q:"Name an instrument you'd find in a symphony orchestra", d:`
+22 When Doves Cry
+14 Let's Go Crazy
+6 I Would Die 4 U|i would die for you
+6 Darling Nikki
+5 Take Me with U|take me with you
+4 The Beautiful Ones
+4 Baby I'm a Star
+4 Computer Blue`},
+ {cat:"Instruments", q:"An instrument you'd find in a symphony orchestra", d:`
 30 Violin
 15 Cello|violoncello
 6 Viola
@@ -256,7 +232,7 @@ const CRATE = [
 0.3 Organ
 0.3 Castanets
 0.5 Tambourine`},
- {cat:"Albums", q:"Name a Radiohead studio album", d:`
+ {cat:"Albums", q:"A Radiohead studio album", d:`
 6 Pablo Honey
 12 The Bends
 40 OK Computer
@@ -266,40 +242,21 @@ const CRATE = [
 18 In Rainbows
 2 The King of Limbs|king of limbs|tkol
 4 A Moon Shaped Pool|amsp`},
- {cat:"Labels", q:"Name an act that recorded for Motown", d:`
-18 Stevie Wonder
-15 The Supremes|diana ross and the supremes
-7 Diana Ross
-14 Marvin Gaye
-12 The Temptations
-10 The Jackson 5|jackson five|the jackson five|jackson 5|the jacksons
-7 Smokey Robinson|smokey robinson and the miracles|the miracles
-5 Four Tops|the four tops
-3 Martha and the Vandellas|martha reeves and the vandellas|martha reeves
-2 Gladys Knight & the Pips|gladys knight|gladys knight and the pips
-1.5 The Marvelettes
-2 Lionel Richie
-2 Commodores|the commodores
-2 Rick James
-1 Mary Wells
-1 Tammi Terrell
-2 Boyz II Men|boys ii men|boyz 2 men
-0.5 The Isley Brothers|isley brothers
-0.5 Jr. Walker & the All Stars|junior walker|jr walker
-0.7 Edwin Starr
-0.2 Kim Weston
-0.3 Jimmy Ruffin
-0.4 David Ruffin
-3 Michael Jackson
-0.5 Teena Marie
-0.4 DeBarge
-0.3 The Contours
-0.1 Brenda Holloway
-0.2 Rare Earth`},
- {cat:"Songs", q:"Name a song by ABBA", d:`
-30 Dancing Queen
-15 Mamma Mia
-9 Waterloo
+ {cat:"Motown", q:"Anyone who has been a member of the Supremes", d:`
+40 Diana Ross
+18 Mary Wilson
+15 Florence Ballard
+5 Cindy Birdsong
+3 Jean Terrell
+1 Lynda Laurence
+1 Scherrie Payne
+0.6 Susaye Greene
+0.4 Barbara Martin
+0.4 Betty McGlown`},
+ {cat:"Songs", q:"A song on ABBA Gold", d:`
+25 Dancing Queen
+14 Mamma Mia
+8 Waterloo
 6 Take a Chance on Me
 6 Gimme! Gimme! Gimme! (A Man After Midnight)|gimme gimme gimme
 5 The Winner Takes It All
@@ -315,66 +272,23 @@ const CRATE = [
 2 Lay All Your Love on Me
 1.5 Thank You for the Music
 1 The Name of the Game
-0.7 One of Us
-1 Honey, Honey
-0.6 Ring Ring
-0.5 Summer Night City
-0.4 Eagle
-0.3 Head over Heels
-0.3 Hasta Mañana
-0.5 Angeleyes
-0.6 Slipping Through My Fingers
-0.3 When All Is Said and Done
-0.4 Our Last Summer
-0.4 I Do, I Do, I Do, I Do, I Do
-0.4 Andante, Andante
-0.5 Happy New Year
-0.2 I Still Have Faith in You
-0.2 Don't Shut Me Down
-0.2 Kisses of Fire`},
- {cat:"Songs", q:"Name a Daft Punk song", d:`
-25 One More Time
-22 Get Lucky
-12 Around the World
-15 Harder, Better, Faster, Stronger|harder better faster stronger|hbfs
-4 Digital Love
-4 Da Funk
-3 Instant Crush
-2 Lose Yourself to Dance
-2 Something About Us
-2 Robot Rock
-3 Technologic
-1.5 Aerodynamic
-0.5 Television Rules the Nation
-0.6 Revolution 909
-0.6 Face to Face
-0.5 Voyager
-0.6 Veridis Quo
-1 Giorgio by Moroder
-0.6 Touch
-0.6 Contact
-1 Derezzed
-0.4 Fragments of Time
-0.3 Burnin'|burning
-0.4 Rollin' & Scratchin'|rollin and scratchin|rolling and scratching
-0.4 Superheroes
-0.5 Human After All
-0.2 Emotion
-0.3 The Prime Time of Your Life
-0.2 Phoenix
-0.2 Teachers
-0.2 Short Circuit
-0.2 Too Long
-0.4 Within
-0.6 Doin' It Right|doing it right
-0.2 Beyond
-0.2 Motherboard
-0.2 Fresh
-0.2 Indo Silver Club
-0.3 Crescendolls
-0.2 Night Vision|nightvision
-0.3 The Game of Love`},
- {cat:"Albums", q:"Name a Taylor Swift studio album", d:`
+1 One of Us`},
+ {cat:"Electronic", q:"A track on Daft Punk's album Discovery", d:`
+30 One More Time
+20 Harder, Better, Faster, Stronger|harder better faster stronger|hbfs
+10 Digital Love
+5 Aerodynamic
+5 Something About Us
+3 Veridis Quo
+3 Face to Face
+2 Voyager
+2 Superheroes
+1.5 Crescendolls
+1.5 Nightvision|night vision
+1 High Life
+1 Short Circuit
+1 Too Long`},
+ {cat:"Albums", q:"A Taylor Swift studio album", d:`
 6 Taylor Swift|self-titled|debut
 10 Fearless
 6 Speak Now
@@ -387,7 +301,7 @@ const CRATE = [
 9 Midnights
 6 The Tortured Poets Department|ttpd|tortured poets department
 6 The Life of a Showgirl|life of a showgirl|tloas`},
- {cat:"Genres", q:"Name a genre of electronic music", d:`
+ {cat:"Genres", q:"A genre of electronic music", d:`
 20 House
 20 Techno
 8 Trance
@@ -441,8 +355,73 @@ const CRATE = [
 0.2 Electroclash
 0.3 Detroit Techno
 0.3 Chicago House
-0.2 Juke`},
- {cat:"Members", q:"Name anyone who has been a member of Fleetwood Mac", d:`
+0.2 Juke
+0.3 Acid Techno
+0.3 Ambient Techno
+0.3 Balearic
+0.3 Big Room
+0.1 Bitpop
+0.2 Broken Beat
+0.6 Chillout|chill out
+0.2 Complextro
+0.6 Darkwave
+0.3 Dark Ambient
+0.2 Disco House
+0.6 Dub
+0.6 Electro Swing
+1 Electronica
+1 Electropop|electro-pop|electro pop
+0.6 French House|filter house|french touch
+0.3 Future Garage
+0.4 Future House
+0.2 Gqom
+0.3 Hard Trance
+0.4 Hard Techno
+0.3 Hard House
+0.6 Afro House
+0.2 Funky House
+0.2 Ghetto House
+0.3 Hip House
+0.1 Jackin House
+0.3 Microhouse
+0.2 Soulful House
+1 Tropical House
+0.8 Melodic Techno
+0.4 Neurofunk
+0.6 Liquid Drum and Bass|liquid funk|liquid dnb
+0.6 Nu Disco
+0.1 Nu Skool Breaks
+0.8 Phonk
+0.2 Post-Dubstep
+0.3 Progressive Trance
+0.3 Riddim
+0.2 Schranz
+0.2 Speedcore
+0.2 Techstep
+0.2 Tribal House
+0.3 Uplifting Trance
+0.3 Vocal Trance
+0.2 Wave
+0.1 Wonky
+0.3 UK Funky
+0.2 Berlin School
+0.2 New Beat
+0.2 Baltimore Club
+0.3 Miami Bass
+0.3 Freestyle
+0.4 Disco
+0.3 Krautrock
+0.3 Brostep
+0.3 Drumstep
+0.3 Glitch Hop
+0.2 Hardcore Techno
+0.2 Leftfield
+0.2 Plunderphonics
+0.4 Garage House
+0.3 Deconstructed Club
+0.3 Bass House
+0.2 Big Beat Breaks`},
+ {cat:"Members", q:"Anyone who has been a member of Fleetwood Mac", d:`
 30 Stevie Nicks
 20 Lindsey Buckingham
 12 Christine McVie
@@ -461,162 +440,77 @@ const CRATE = [
 0.2 Bekka Bramlett
 0.4 Mike Campbell
 0.5 Neil Finn`},
- {cat:"Songs", q:"Name a Bob Dylan song", d:`
-20 Blowin' in the Wind|blowing in the wind
-20 Like a Rolling Stone
-12 The Times They Are a-Changin'|the times they are a changing|times they are a changin
-10 Knockin' on Heaven's Door|knocking on heavens door
-6 Mr. Tambourine Man|mister tambourine man
-3 Don't Think Twice, It's All Right|dont think twice
-3 Subterranean Homesick Blues
-4 All Along the Watchtower
-4 Tangled Up in Blue
-3 Hurricane
-2 Lay Lady Lay
-2 Just Like a Woman
-2 Forever Young
-1 Positively 4th Street|positively fourth street
-0.7 Visions of Johanna
-1 Desolation Row
-1.5 A Hard Rain's a-Gonna Fall|hard rain|a hard rains gonna fall
-1 Highway 61 Revisited
-1 It Ain't Me Babe
-0.8 Shelter from the Storm
-0.8 Simple Twist of Fate
-1 Masters of War
-1.5 Make You Feel My Love|to make you feel my love
-1 Rainy Day Women #12 & 35|rainy day women|everybody must get stoned
-0.8 I Shall Be Released
-0.8 It's All Over Now, Baby Blue
-0.5 Gotta Serve Somebody
-0.6 Ballad of a Thin Man
-0.6 Girl from the North Country
-0.3 Sad-Eyed Lady of the Lowlands
-0.4 Murder Most Foul
-0.5 Things Have Changed
-0.3 Isis
-0.5 Idiot Wind
-0.4 Not Dark Yet
-0.3 Mississippi
-0.3 Chimes of Freedom
-0.6 Maggie's Farm
-0.3 Quinn the Eskimo|the mighty quinn|mighty quinn
-0.4 You Ain't Goin' Nowhere
-0.3 Tombstone Blues
-0.3 Jokerman
-0.2 Every Grain of Sand`},
- {cat:"Albums", q:"Name a Kendrick Lamar studio album", d:`
+ {cat:"Albums", q:"A song on Bob Dylan's album Highway 61 Revisited", d:`
+40 Like a Rolling Stone
+12 Highway 61 Revisited
+10 Desolation Row
+8 Ballad of a Thin Man
+5 Tombstone Blues
+4 Just Like Tom Thumb's Blues
+3 Queen Jane Approximately
+3 It Takes a Lot to Laugh, It Takes a Train to Cry|it takes a lot to laugh
+2 From a Buick 6`},
+ {cat:"Albums", q:"A Kendrick Lamar studio album", d:`
 6 Section.80|section 80
 25 good kid, m.A.A.d city|gkmc|good kid maad city
 25 To Pimp a Butterfly|tpab
 25 DAMN.|damn
 8 Mr. Morale & the Big Steppers|mr morale|mr morale and the big steppers
 10 GNX`},
- {cat:"Theory", q:"Name an Italian term written on sheet music", d:`
+ {cat:"Theory", q:"A tempo marking", d:`
 15 Allegro
-12 Forte
-10 Piano
-10 Crescendo
-8 Adagio
-6 Andante
-5 Presto
-4 Fortissimo
-4 Pianissimo
-2 Decrescendo
-2 Diminuendo
-4 Staccato
-3 Legato
-3 Largo
-2 Lento
-2 Moderato
-2 Vivace
-2 Ritardando|rit|ritard
-1.5 Accelerando|accel
-0.8 Rallentando|rall
-1 A Tempo
-2 Fermata
-1 Dolce
-0.6 Cantabile
-1 Sforzando|sfz
-1.5 Mezzo Forte|mf
-1.5 Mezzo Piano|mp
-1.5 Pizzicato|pizz
-0.5 Arco
-0.5 Tutti
-0.8 Rubato|tempo rubato
-0.8 Allegretto
-0.3 Larghetto
-0.3 Grave
-0.4 Prestissimo
-0.8 Da Capo|dc
-0.5 Dal Segno|ds
-0.6 Coda
-0.4 Fine
-0.4 Sostenuto
-0.5 Tenuto
-0.4 Marcato
-0.2 Morendo
-0.1 Smorzando
-0.4 Con Brio
-0.3 Maestoso
-0.2 Agitato
-0.3 Espressivo
-0.2 Sotto Voce
-0.4 Glissando
-0.4 Tremolo
-0.2 Subito
-0.2 Poco a Poco
-0.1 Allargando
-0.1 Stringendo
-0.1 Leggiero
-0.2 Fortepiano|fp`},
- {cat:"Songs", q:"Name a Queen song", d:`
-35 Bohemian Rhapsody
+12 Adagio
+10 Andante
+8 Presto
+6 Largo
+6 Lento
+5 Moderato
+5 Vivace
+3 Allegretto
+2 Andantino
+1.5 Larghetto
+2 Grave
+2 Prestissimo
+0.8 Larghissimo
+0.8 Vivacissimo
+0.5 Allegrissimo
+0.5 Adagietto
+0.6 Allegro Moderato
+0.4 Andante Moderato
+4 Ritardando|rit|ritard
+3 Accelerando|accel
+1.5 Rallentando|rall
+2 A Tempo
+1 Tempo Primo|tempo i
+2 Rubato|tempo rubato
+0.6 Ritenuto
+0.4 Stringendo
+0.4 Allargando
+0.6 Meno Mosso
+0.6 Più Mosso|piu mosso
+0.3 L'istesso Tempo|listesso tempo
+0.3 Doppio Movimento
+0.3 Tempo Giusto
+0.3 Calando`},
+ {cat:"Songs", q:"A song on Queen's 1981 Greatest Hits album", d:`
+30 Bohemian Rhapsody
 12 We Will Rock You
 10 We Are the Champions
 10 Don't Stop Me Now
 8 Another One Bites the Dust
-5 Under Pressure
-4 Somebody to Love
-3 Killer Queen
-3 Radio Ga Ga|radio gaga
-3 I Want to Break Free
-2 Crazy Little Thing Called Love
-1 Bicycle Race
-1.5 Fat Bottomed Girls
-2 The Show Must Go On
-1.5 Who Wants to Live Forever
-1 A Kind of Magic
-1 I Want It All
-1 Love of My Life
-0.5 These Are the Days of Our Lives
-0.4 Innuendo
-0.6 Flash|flash's theme
-0.3 Seven Seas of Rhye
-0.8 You're My Best Friend
-0.4 Tie Your Mother Down
-0.4 Hammer to Fall
-0.2 Spread Your Wings
-0.3 '39|39
-0.2 Now I'm Here
-0.3 Stone Cold Crazy
-0.3 Keep Yourself Alive
-0.3 Good Old-Fashioned Lover Boy
-0.2 Brighton Rock
-0.2 Play the Game
-0.3 Princes of the Universe
-0.3 One Vision
-0.2 Breakthru
-0.1 Headlong
-0.2 Too Much Love Will Kill You
-0.1 Heaven for Everyone
-0.1 Mustapha
-0.1 The Prophet's Song
-0.2 It's a Hard Life
-0.2 Friends Will Be Friends
-0.2 Save Me
-0.1 Death on Two Legs`},
- {cat:"Albums", q:"Name a Beyoncé solo studio album", d:`
+5 Somebody to Love
+4 Killer Queen
+3 Crazy Little Thing Called Love
+2 Bicycle Race
+3 Fat Bottomed Girls
+2 You're My Best Friend
+1 Flash|flashs theme
+0.8 Seven Seas of Rhye
+0.6 Play the Game
+0.6 Save Me
+0.6 Now I'm Here
+0.6 Good Old-Fashioned Lover Boy`},
+ {cat:"Albums", q:"A Beyoncé solo studio album", d:`
 15 Dangerously in Love
 10 B'Day|bday
 12 I Am... Sasha Fierce|i am sasha fierce|sasha fierce
@@ -625,7 +519,7 @@ const CRATE = [
 30 Lemonade
 15 Renaissance|act i renaissance
 14 Cowboy Carter|act ii cowboy carter`},
- {cat:"Members", q:"Name anyone who has been a member of the Rolling Stones", d:`
+ {cat:"Members", q:"Anyone who has been a member of the Rolling Stones", d:`
 35 Mick Jagger
 30 Keith Richards
 12 Charlie Watts
@@ -635,7 +529,7 @@ const CRATE = [
 1.5 Mick Taylor
 0.5 Ian Stewart
 0.2 Dick Taylor`},
- {cat:"Contests", q:"Name a country that has won Eurovision", d:`
+ {cat:"Contests", q:"A country that has won Eurovision", d:`
 15 Sweden
 10 Ireland
 8 United Kingdom|uk|britain|great britain
@@ -663,97 +557,29 @@ const CRATE = [
 1 Belgium
 1 Monaco
 0.5 Yugoslavia`},
- {cat:"Songs", q:"Name a Nirvana song", d:`
-35 Smells Like Teen Spirit
+ {cat:"Albums", q:"A song on Nirvana's album Nevermind", d:`
+40 Smells Like Teen Spirit
 15 Come as You Are
-8 Heart-Shaped Box
-7 Lithium
-5 In Bloom
-4 All Apologies
-4 The Man Who Sold the World
-3 Where Did You Sleep Last Night|in the pines
-1 Rape Me
-2 Polly
-3 About a Girl
-2 Dumb
-4 Something in the Way
-1 Breed
-1 Drain You
-0.5 Lounge Act
-0.5 Territorial Pissings
-0.5 On a Plain
-0.3 Stay Away
-1.5 Pennyroyal Tea
-0.5 Serve the Servants
-0.5 Scentless Apprentice
-0.3 Milk It
-0.2 Radio Friendly Unit Shifter
-0.2 Tourette's
-0.2 Very Ape
-0.2 Frances Farmer Will Have Her Revenge on Seattle
-0.6 Sliver
-0.5 Aneurysm
-0.3 Dive
-0.3 Negative Creep
-0.3 School
-0.3 Blew
-0.3 Love Buzz
-0.6 You Know You're Right
-0.3 Lake of Fire
-0.2 Plateau
-0.2 Molly's Lips
-0.2 Been a Son
-0.1 Endless, Nameless
-0.1 Marigold
-0.1 Floyd the Barber
-0.1 Paper Cuts
-0.1 Sappy`},
- {cat:"Players", q:"Name a jazz saxophonist", d:`
+8 Lithium
+6 In Bloom
+5 Something in the Way
+3 Polly
+2 Breed
+2 Drain You
+1 Lounge Act
+1 Territorial Pissings
+1 On a Plain
+0.6 Stay Away
+0.5 Endless, Nameless`},
+ {cat:"Jazz", q:"A musician who played on Miles Davis's Kind of Blue", d:`
+35 Miles Davis
 25 John Coltrane
-18 Charlie Parker|bird
-6 Sonny Rollins
-8 Kenny G
-3 Stan Getz
-3 Cannonball Adderley|julian adderley
-2 Wayne Shorter
-2 Dexter Gordon
-2 Coleman Hawkins
-2 Lester Young
-2 Ornette Coleman
-2 Paul Desmond
-1 Gerry Mulligan
-1 Ben Webster
-1 Sidney Bechet
-0.8 Eric Dolphy
-0.6 Joe Henderson
-0.7 Johnny Hodges
-0.8 Michael Brecker
-1 Pharoah Sanders
-0.5 Albert Ayler
-1 Branford Marsalis
-1 Kamasi Washington
-0.4 Art Pepper
-0.4 Hank Mobley
-0.3 Jackie McLean
-0.2 Benny Golson
-0.2 Zoot Sims
-0.3 Rahsaan Roland Kirk|roland kirk
-0.2 Phil Woods
-0.2 Jan Garbarek
-0.4 Joshua Redman
-0.2 Chris Potter
-0.2 Shabaka Hutchings
-0.2 Archie Shepp
-0.2 Yusef Lateef
-0.3 Grover Washington Jr.|grover washington
-0.4 David Sanborn
-0.2 Candy Dulfer
-0.2 Sonny Stitt
-0.2 Gato Barbieri
-0.2 Charles Lloyd
-0.2 Lee Konitz
-0.2 Benny Carter`},
- {cat:"Film", q:"Name an artist who performed a James Bond theme", d:`
+12 Bill Evans
+10 Cannonball Adderley|julian adderley
+6 Paul Chambers
+6 Jimmy Cobb
+4 Wynton Kelly`},
+ {cat:"Film", q:"An artist who performed a James Bond theme", d:`
 15 Shirley Bassey
 20 Adele
 8 Paul McCartney|wings|paul mccartney and wings
@@ -777,110 +603,31 @@ const CRATE = [
 0.4 Rita Coolidge
 0.5 Jack White
 0.5 Alicia Keys`},
- {cat:"Songs", q:"Name a Michael Jackson solo song", d:`
-20 Thriller
-25 Billie Jean
-12 Beat It
-8 Smooth Criminal
-6 Man in the Mirror
-4 Black or White
-4 Bad
-3 Don't Stop 'Til You Get Enough|dont stop til you get enough
-2 Rock with You
-2 Human Nature
-1.5 Wanna Be Startin' Somethin'|wanna be starting something
-3 The Way You Make Me Feel
-2 Remember the Time
-2 They Don't Care About Us
-1.5 Earth Song
-1.5 Heal the World
-1 You Are Not Alone
-1 Dirty Diana
-0.6 Off the Wall
-0.4 Leave Me Alone
-0.4 Liberian Girl
-1 P.Y.T. (Pretty Young Thing)|pyt|pretty young thing
-0.2 Speed Demon
-0.5 Jam
-0.4 In the Closet
-0.6 Scream
-0.4 Stranger in Moscow
-0.5 Blood on the Dance Floor
-0.6 Ben
-0.3 Got to Be There
-0.3 Rockin' Robin
-0.4 She's Out of My Life
-0.5 The Girl Is Mine
-0.4 Say Say Say
-0.4 Will You Be There
-0.3 Who Is It
-0.2 Give In to Me
-0.2 Butterflies
-0.4 You Rock My World
-0.3 Love Never Felt So Good
-0.2 Another Part of Me
-0.4 I Just Can't Stop Loving You`},
- {cat:"Members", q:"Name a Spice Girl (real name or Spice name)", d:`
+ {cat:"Albums", q:"A song on Michael Jackson's album Thriller", d:`
+30 Billie Jean
+25 Thriller
+15 Beat It
+6 Wanna Be Startin' Somethin'|wanna be starting something
+5 Human Nature
+5 P.Y.T. (Pretty Young Thing)|pyt|pretty young thing
+4 The Girl Is Mine
+1.5 Baby Be Mine
+1.5 The Lady in My Life`},
+ {cat:"Members", q:"A Spice Girl (real name or Spice name)", d:`
 30 Victoria Beckham|posh|posh spice|victoria adams
 18 Geri Halliwell|ginger|ginger spice|geri horner
 18 Mel B|scary|scary spice|melanie brown
 16 Emma Bunton|baby|baby spice
 18 Mel C|sporty|sporty spice|melanie chisholm`},
- {cat:"Groups", q:"Name a K-pop group", d:`
-30 BTS|bangtan boys|bangtan sonyeondan
-25 Blackpink
-6 Twice
-4 EXO
-4 Stray Kids|skz
-3 Seventeen|svt
-4 NewJeans|nj|njz
-3 Red Velvet
-3 Big Bang|bigbang
-2 Girls' Generation|snsd
-1.5 Tomorrow X Together|txt
-3 aespa
-1.5 Itzy
-1.5 i-dle|gidle|(g)i-dle|g i-dle
-1.5 Ateez
-2 NCT|nct 127|nct dream|wayv
-1 Enhypen
-1.5 IVE
-1.5 Le Sserafim|lesserafim
-1 Mamamoo
-1.5 2NE1
-1.5 SHINee
-1 Super Junior
-0.6 Monsta X
-1 GOT7
-0.5 Wonder Girls
-0.4 Kara
-0.4 f(x)|fx
-0.3 Apink
-0.2 Infinite
-0.6 Babymonster
-0.5 ILLIT
-0.3 Kiss of Life
-0.4 Treasure
-0.3 The Boyz
-0.3 Oh My Girl
-0.3 Dreamcatcher
-0.4 Loona
-0.2 Everglow
-0.4 Fifty Fifty
-0.4 RIIZE
-0.3 ZEROBASEONE|zb1
-0.3 BOYNEXTDOOR
-0.2 H.O.T.|hot
-0.2 Shinhwa
-0.4 TVXQ|dbsk|tohoshinki
-0.3 2PM
-0.3 Wanna One
-0.3 IZ*ONE|izone
-0.2 Pentagon
-0.2 Astro
-0.2 Kep1er
-0.3 NMIXX`},
- {cat:"Members", q:"Name a member of the Wu-Tang Clan", d:`
+ {cat:"K-Pop", q:"A member of BTS", d:`
+20 Jungkook|jeon jungkook|jung kook
+18 V|kim taehyung|taehyung
+15 Jimin|park jimin
+12 RM|rap monster|kim namjoon|namjoon
+10 Suga|agust d|min yoongi|yoongi
+10 Jin|kim seokjin|seokjin
+10 J-Hope|jhope|jung hoseok|hoseok`},
+ {cat:"Members", q:"A member of the Wu-Tang Clan", d:`
 20 RZA
 8 GZA|genius
 20 Method Man|meth
@@ -891,7 +638,7 @@ const CRATE = [
 3 U-God
 3 Masta Killa
 1 Cappadonna`},
- {cat:"Albums", q:"Name a Pink Floyd studio album", d:`
+ {cat:"Albums", q:"A Pink Floyd studio album", d:`
 4 The Piper at the Gates of Dawn|piper at the gates of dawn
 1.5 A Saucerful of Secrets
 0.3 More
@@ -907,7 +654,7 @@ const CRATE = [
 1 A Momentary Lapse of Reason
 2 The Division Bell
 0.5 The Endless River`},
- {cat:"Titles", q:"Name a song with “yellow” in the title", d:`
+ {cat:"Titles", q:"A song with “yellow” in the title", d:`
 30 Yellow ~ Coldplay
 25 Yellow Submarine ~ The Beatles
 8 Mellow Yellow ~ Donovan
@@ -920,51 +667,16 @@ const CRATE = [
 1 Yellow Flicker Beat ~ Lorde
 2 Itsy Bitsy Teenie Weenie Yellow Polkadot Bikini|yellow polka dot bikini|itsy bitsy ~ Brian Hyland
 0.5 Yellow Bird ~ Traditional
-0.3 Yellow Moon ~ The Neville Brothers`},
- {cat:"Titles", q:"Name a song with “rain” in the title", d:`
-20 Purple Rain ~ Prince
-10 Singin' in the Rain|singing in the rain ~ Gene Kelly
-8 Set Fire to the Rain ~ Adele
-12 November Rain ~ Guns N' Roses
-3 Who'll Stop the Rain ~ Creedence Clearwater Revival
-6 Have You Ever Seen the Rain ~ Creedence Clearwater Revival
-6 Raindrops Keep Fallin' on My Head|raindrops keep falling on my head ~ B.J. Thomas
-6 It's Raining Men ~ The Weather Girls
-3 Here Comes the Rain Again ~ Eurythmics
-3 Fire and Rain ~ James Taylor
-5 Rain on Me ~ Lady Gaga & Ariana Grande
-1.5 I Can't Stand the Rain ~ Ann Peebles
-1.5 Rhythm of the Rain ~ The Cascades
-1.5 Blame It on the Rain ~ Milli Vanilli
-1 Rain ~ The Beatles
-0.5 Laughter in the Rain ~ Neil Sedaka
-1.5 Rainy Days and Mondays ~ Carpenters
-0.4 Box of Rain ~ Grateful Dead
-0.6 Crying in the Rain ~ The Everly Brothers
-0.2 Buckets of Rain ~ Bob Dylan
-1 A Hard Rain's a-Gonna Fall|hard rain|a hard rains gonna fall ~ Bob Dylan`},
- {cat:"Titles", q:"Name a song with “fire” in the title", d:`
-8 Girl on Fire ~ Alicia Keys
-12 Ring of Fire ~ Johnny Cash
-10 Light My Fire ~ The Doors
-8 Great Balls of Fire ~ Jerry Lee Lewis
-10 We Didn't Start the Fire ~ Billy Joel
-3 Fire ~ Jimi Hendrix / Bruce Springsteen / Pointer Sisters
-6 Set Fire to the Rain ~ Adele
-2 Fire and Rain ~ James Taylor
-6 Firework ~ Katy Perry
-3 I'm on Fire ~ Bruce Springsteen
-6 Sex on Fire ~ Kings of Leon
-1.5 Fire Burning ~ Sean Kingston
-0.6 Fire Woman ~ The Cult
-0.4 Fire on the Mountain ~ Grateful Dead
-2 St. Elmo's Fire (Man in Motion)|st elmos fire|saint elmos fire|man in motion ~ John Parr
-0.4 This Fire ~ Franz Ferdinand
-2 Firestarter ~ The Prodigy
-0.3 Fire Lake ~ Bob Seger
-2 Fireflies ~ Owl City
-1.5 Through the Fire and Flames ~ DragonForce`},
- {cat:"Titles", q:"Name a song with a day of the week in the title", d:`
+0.3 Yellow Moon ~ The Neville Brothers
+0.6 Yellow River ~ Christie
+0.4 Yellow Light ~ Of Monsters and Men
+0.4 Yellow Hearts ~ Ant Saunders
+0.3 Yellow Balloon ~ Yellow Balloon
+0.3 Yellow Eyes ~ Rayland Baxter
+0.4 Yellow Fever ~ Fela Kuti
+0.4 Yellow Rose ~ Johnny Lee & Lane Brody
+0.3 Yellow Man ~ Randy Newman`},
+ {cat:"Titles", q:"A song with a day of the week in the title", d:`
 10 Manic Monday ~ The Bangles
 10 Friday I'm in Love ~ The Cure
 6 Ruby Tuesday ~ The Rolling Stones
@@ -990,65 +702,24 @@ const CRATE = [
 0.4 Come Monday ~ Jimmy Buffett
 0.3 New Moon on Monday ~ Duran Duran
 0.2 Monday Morning ~ Fleetwood Mac
-0.3 Sunday Candy ~ Donnie Trumpet & the Social Experiment`},
- {cat:"Titles", q:"Name a song with “dance” or “dancing” in the title", d:`
-20 Dancing Queen ~ ABBA
-10 Dance Monkey ~ Tones and I
-8 Just Dance ~ Lady Gaga
-4 Save the Last Dance for Me ~ The Drifters
-12 I Wanna Dance with Somebody (Who Loves Me)|i wanna dance with somebody ~ Whitney Houston
-6 Dancing in the Dark ~ Bruce Springsteen
-4 Dancing in the Street ~ Martha and the Vandellas
-3 Dance the Night ~ Dua Lipa
-5 Let's Dance ~ David Bowie
-4 Dancing on My Own ~ Robyn
-2 Private Dancer ~ Tina Turner
-6 Tiny Dancer ~ Elton John
-3 The Safety Dance|safety dance ~ Men Without Hats
-2 Dancing with Myself ~ Billy Idol
-1.5 Dance, Dance|dance dance ~ Fall Out Boy
-1.5 Rhythm Is a Dancer ~ Snap!
-2 Last Dance ~ Donna Summer
-1.5 Dancing with a Stranger ~ Sam Smith & Normani
-1.5 You Should Be Dancing ~ Bee Gees
-2 Dancing in the Moonlight|dancin in the moonlight ~ King Harvest / Toploader
-0.6 Dance Yourself Clean ~ LCD Soundsystem
-3 Shut Up and Dance ~ Walk the Moon
-0.4 Dancing Barefoot ~ Patti Smith
-0.5 Dance Hall Days ~ Wang Chung
-1 Dancing on the Ceiling ~ Lionel Richie
-0.5 Dancing Machine ~ The Jackson 5
-0.8 Dance to the Music ~ Sly & the Family Stone
-0.3 Dance wiv Me|dance with me ~ Dizzee Rascal
-1 Lose Yourself to Dance ~ Daft Punk`},
- {cat:"Titles", q:"Name a song with “heart” in the title", d:`
-10 Total Eclipse of the Heart ~ Bonnie Tyler
-8 Heart of Glass ~ Blondie
-6 Achy Breaky Heart ~ Billy Ray Cyrus
-4 Heart-Shaped Box ~ Nirvana
-6 Don't Go Breaking My Heart ~ Elton John & Kiki Dee
-5 Un-Break My Heart|unbreak my heart ~ Toni Braxton
-6 Heartbreak Hotel ~ Elvis Presley
-4 Heart of Gold ~ Neil Young
-4 Owner of a Lonely Heart ~ Yes
-3 Listen to Your Heart ~ Roxette
-3 Heartbreaker ~ Pat Benatar / Mariah Carey
-2 Cold Heart (Pnau Remix)|cold heart ~ Elton John & Dua Lipa
-3 Piece of My Heart ~ Janis Joplin / Erma Franklin
-3 Heartless ~ Kanye West / The Weeknd
-1.5 Heart Attack ~ Demi Lovato
-1.5 Heartbeat ~ Buddy Holly
-1 Change of Heart ~ Cyndi Lauper
-1 Young Hearts Run Free ~ Candi Staton
-1 Heartbreak Anniversary ~ Giveon
-0.8 Heart of Stone ~ The Rolling Stones
-0.5 Harden My Heart ~ Quarterflash
-1 Queen of Hearts ~ Juice Newton
-1.5 Heart and Soul ~ Hoagy Carmichael / Huey Lewis
-1 Two Hearts ~ Phil Collins
-1 My Heart Will Go On ~ Celine Dion
-`},
- {cat:"Titles", q:"Name a song with “moon” in the title", d:`
+0.3 Sunday Candy ~ Donnie Trumpet & the Social Experiment
+0.6 Stormy Monday|call it stormy monday ~ T-Bone Walker
+0.6 Tuesday Afternoon ~ The Moody Blues
+0.6 Tuesday ~ ILoveMakonnen
+0.4 Thursday's Child ~ David Bowie
+0.4 Thank God It's Friday ~ Love & Kisses
+0.6 Freaky Friday ~ Lil Dicky
+1 Another Saturday Night ~ Sam Cooke
+0.6 Saturday Love ~ Cherrelle & Alexander O'Neal
+0.4 Saturday Sun ~ Nick Drake / Vance Joy
+0.6 Saturday ~ Fall Out Boy
+1 Sunday Morning Coming Down|sunday mornin comin down ~ Kris Kristofferson / Johnny Cash
+0.6 A Sunday Kind of Love|sunday kind of love ~ Etta James
+0.4 Never on Sunday ~ Melina Mercouri
+0.6 Sunday Best ~ Surfaces
+0.3 Sunday Morning Call ~ Oasis
+0.3 Monday ~ Wilco`},
+ {cat:"Titles", q:"A song with “moon” in the title", d:`
 15 Fly Me to the Moon ~ Frank Sinatra
 10 Moon River ~ Audrey Hepburn / Andy Williams
 8 Bad Moon Rising ~ Creedence Clearwater Revival
@@ -1071,8 +742,27 @@ const CRATE = [
 0.3 New Moon on Monday ~ Duran Duran
 0.4 Moonlight Feels Right ~ Starbuck
 0.5 Blue Moon of Kentucky ~ Bill Monroe / Elvis Presley
-0.5 Mr. Moonlight ~ The Beatles`},
- {cat:"Titles", q:"Name a song with “California” in the title", d:`
+0.5 Mr. Moonlight ~ The Beatles
+1.5 Moonlight Serenade ~ Glenn Miller
+1 Moon Song ~ Phoebe Bridgers
+0.6 Moonlight in Vermont ~ Ella Fitzgerald & Louis Armstrong
+0.4 Shine On, Harvest Moon|shine on harvest moon ~ Nora Bayes
+0.8 Moonglow ~ Benny Goodman
+1 Bark at the Moon ~ Ozzy Osbourne
+0.3 Howlin' at the Moon ~ Hank Williams
+1 Moonlight Mile ~ The Rolling Stones
+0.6 Moonchild ~ King Crimson
+0.4 Moon Over Miami ~ Eddy Duchin
+0.4 Moonlight Becomes You ~ Bing Crosby
+0.4 Old Devil Moon ~ Frank Sinatra
+1 Moonlight Drive ~ The Doors
+1 Moonlight Sonata ~ Beethoven
+0.4 Moon ~ Kanye West
+0.6 By the Light of the Silvery Moon ~ Doris Day
+1 Neon Moon ~ Brooks & Dunn
+0.6 How High the Moon ~ Ella Fitzgerald
+0.3 Moonlight Lady ~ Julio Iglesias`},
+ {cat:"Titles", q:"A song with “California” in the title", d:`
 35 Hotel California ~ Eagles
 12 California Gurls ~ Katy Perry
 12 California Dreamin'|california dreaming ~ The Mamas & the Papas
@@ -1085,33 +775,19 @@ const CRATE = [
 1 California King Bed ~ Rihanna
 0.6 California Über Alles|california uber alles ~ Dead Kennedys
 0.5 California Sun ~ The Rivieras / Ramones
-0.4 California Stars ~ Billy Bragg & Wilco`},
- {cat:"Titles", q:"Name a song with “blue” in the title", d:`
-12 Blue (Da Ba Dee)|blue da ba dee|da ba dee ~ Eiffel 65
-10 Blue Suede Shoes ~ Carl Perkins / Elvis Presley
-8 Mr. Blue Sky ~ Electric Light Orchestra
-6 Blue Velvet ~ Bobby Vinton
-6 Blue Moon ~ The Marcels / Billie Holiday
-6 Blue Monday ~ New Order
-6 Behind Blue Eyes ~ The Who
-4 Blue Bayou ~ Roy Orbison / Linda Ronstadt
-4 Blue Jeans ~ Lana Del Rey
-3 Don't It Make My Brown Eyes Blue ~ Crystal Gayle
-3 Forever in Blue Jeans ~ Neil Diamond
-3 Blue Christmas ~ Elvis Presley
-2 Blue Ain't Your Color ~ Keith Urban
-2 Tangled Up in Blue ~ Bob Dylan
-2 Blue Eyes ~ Elton John
-2 True Blue ~ Madonna
-1.5 Blue Hawaii ~ Elvis Presley
-1.5 Blue Skies ~ Irving Berlin / Ella Fitzgerald
-1 Blue on Black ~ Kenny Wayne Shepherd
-1 Bluebird ~ Paul McCartney & Wings / Miranda Lambert
-0.6 Electric Blue ~ Icehouse
-0.5 Bluer Than Blue ~ Michael Johnson
-0.5 Blue Lights ~ Jorja Smith
-`},
- {cat:"Countries", q:"Name a musician from Canada", d:`
+0.4 California Stars ~ Billy Bragg & Wilco
+0.6 California Soul ~ Marlena Shaw / The 5th Dimension
+0.4 California Blue ~ Roy Orbison
+0.4 California Waiting ~ Kings of Leon
+0.4 California Nights ~ Lesley Gore
+0.4 California, Here I Come|california here i come ~ Al Jolson
+0.4 California Man ~ The Move / Cheap Trick
+0.3 California Saga: California|california saga ~ The Beach Boys
+0.4 Californian Soil ~ London Grammar
+0.4 California Roll ~ Snoop Dogg
+0.6 California Sober ~ Post Malone & Chris Stapleton
+0.3 California (There Is No End to Love)|california there is no end to love ~ U2`},
+ {cat:"Countries", q:"A musician from Canada", d:`
 16 Drake
 14 Justin Bieber
 12 Celine Dion|céline dion
@@ -1159,8 +835,83 @@ const CRATE = [
 0.5 Tory Lanez
 0.3 NAV
 0.3 Jessie Reyez
-0.2 Walk off the Earth`},
- {cat:"Countries", q:"Name a musician from Australia", d:`
+0.2 Walk off the Earth
+0.4 Arkells
+0.3 Alvvays
+0.3 Bif Naked
+0.4 Blue Rodeo
+0.4 Buffy Sainte-Marie
+0.4 Bruce Cockburn
+0.5 Corey Hart
+0.4 City and Colour|dallas green
+0.4 Cowboy Junkies
+0.6 Crash Test Dummies
+0.3 Death from Above 1979|death from above
+0.8 Diana Krall
+0.6 Glenn Gould
+0.3 Great Big Sea
+0.4 Hedley
+0.2 Ian Tyson
+0.3 Jann Arden
+0.3 Jeff Healey
+0.2 k-os
+0.2 Kardinal Offishall
+0.3 Kiesza
+0.2 Lights
+0.4 Loreena McKennitt
+0.3 Majid Jordan
+0.3 Men Without Hats
+0.4 Mother Mother
+0.6 Oscar Peterson
+0.4 Peaches
+0.3 Paul Shaffer
+0.2 Rita MacNeil
+0.5 Robbie Robertson
+0.2 Ron Sexsmith
+0.2 Stompin' Tom Connors|stompin tom
+0.6 The Band
+0.3 The New Pornographers|new pornographers
+0.2 The Sheepdogs
+0.6 Three Days Grace
+0.4 Billy Talent
+0.3 Alexisonfire
+0.2 Triumph
+0.2 April Wine
+0.2 Glass Tiger
+0.2 Honeymoon Suite
+0.3 Charlotte Cardin
+0.3 Daniel Lanois
+0.6 David Foster
+0.6 Geddy Lee
+0.4 Neil Peart
+0.2 Alex Lifeson
+0.2 Ian & Sylvia
+0.3 Terri Clark
+0.2 Paul Brandt
+0.2 Lindsay Ell
+0.2 Allie X
+0.3 Ruth B
+0.2 Coeur de Pirate
+0.2 Martha Wainwright
+0.2 Kate & Anna McGarrigle|mcgarrigle sisters
+0.2 Hank Snow
+0.3 Guy Lombardo
+0.2 Percy Faith
+0.4 Snow
+0.2 Maestro Fresh Wes
+0.2 Classified
+0.3 bbno$|bbno
+0.3 Caribou|dan snaith
+0.3 BadBadNotGood
+0.3 Silverstein
+0.3 Garou
+0.2 Ginette Reno
+0.4 Sarah Harmer
+0.2 Platinum Blonde
+0.4 Steppenwolf
+0.3 Brett Kissel
+0.3 Dean Brody`},
+ {cat:"Countries", q:"A musician from Australia", d:`
 16 AC/DC|acdc
 14 Kylie Minogue
 10 Sia
@@ -1207,8 +958,94 @@ const CRATE = [
 0.3 Amyl and the Sniffers
 0.3 Rick Springfield
 0.2 Jessica Mauboy
-0.5 Empire of the Sun`},
- {cat:"Countries", q:"Name a musician from Jamaica", d:`
+0.5 Empire of the Sun
+0.6 Icehouse
+0.4 Hunters & Collectors
+0.4 The Church
+0.4 The Go-Betweens
+0.6 Divinyls
+0.4 Hoodoo Gurus
+0.4 The Living End
+0.3 Grinspoon
+0.3 Spiderbait
+0.2 You Am I
+0.2 Something for Kate
+0.4 The Vines
+0.4 Pnau
+0.3 The Presets
+0.4 Cut Copy
+0.3 Sneaky Sound System
+0.3 Peking Duk
+0.3 Hayden James
+0.6 Chet Faker|nick murphy
+0.6 Gang of Youths
+0.3 Thelma Plum
+0.3 Baker Boy
+0.4 Archie Roach
+0.6 Yothu Yindi
+0.6 Gurrumul|geoffrey gurrumul yunupingu
+0.3 Christine Anu
+0.3 Kate Miller-Heidke
+0.2 Sarah Blasko
+0.6 Guy Sebastian
+0.3 Ricki-Lee
+0.3 Vanessa Amorosi
+0.6 Tina Arena
+1 John Farnham
+0.3 Daryl Braithwaite
+0.6 Helen Reddy
+0.4 Peter Allen
+0.4 Slim Dusty
+0.2 Lee Kernaghan
+0.2 John Williamson
+0.6 The Seekers
+0.3 Rose Tattoo
+0.3 The Angels
+0.2 Australian Crawl
+0.2 Mental As Anything
+0.2 Skyhooks
+0.2 Sherbet
+0.2 Daddy Cool
+0.2 The Masters Apprentices
+0.3 Radio Birdman
+0.4 The Saints
+0.3 The Birthday Party
+0.4 Dead Can Dance
+0.2 Middle Kids
+0.2 Methyl Ethel
+0.2 Ball Park Music
+0.2 The Jungle Giants
+0.4 Lime Cordiale
+0.4 Spacey Jane
+0.3 DMA's|dmas
+0.3 The Rubens
+0.2 San Cisco
+0.3 Julia Stone
+0.4 Matt Corby
+0.2 Ben Lee
+0.2 Alex Lahey
+0.4 Amy Shark
+0.4 G Flip
+0.3 Ruel
+0.6 Dean Lewis
+0.4 Parkway Drive
+0.2 Northlane
+0.2 Karnivool
+0.4 Airbourne
+0.4 The Cat Empire
+0.6 John Butler Trio|john butler
+0.4 Xavier Rudd
+0.2 The Waifs
+0.3 Bliss n Eso
+0.2 Briggs
+0.4 The Veronicas
+0.6 Tash Sultana
+0.6 Angus Young
+0.6 Bon Scott
+0.4 Dannii Minogue
+0.6 Michael Hutchence
+0.3 Colin Hay`},
+ {cat:"Countries", q:"A musician from Jamaica", d:`
 40 Bob Marley|bob marley and the wailers
 10 Sean Paul
 10 Shaggy
@@ -1251,8 +1088,99 @@ const CRATE = [
 0.5 Prince Buster
 0.4 The Skatalites
 0.3 Third World
-0.3 Inner Circle`},
- {cat:"Countries", q:"Name a musician from Sweden", d:`
+0.3 Inner Circle
+0.4 Alton Ellis
+0.3 Ken Boothe
+0.4 John Holt
+0.2 The Paragons
+0.3 The Heptones
+0.3 The Melodians
+0.3 The Abyssinians
+0.3 Culture
+0.2 Israel Vibration
+0.2 The Congos
+0.4 Max Romeo
+0.4 Augustus Pablo
+0.4 Horace Andy
+0.3 Big Youth
+0.2 I-Roy
+0.2 Dillinger
+0.2 Johnny Osbourne
+0.2 Sugar Minott
+0.3 Freddie McGregor
+0.6 Beres Hammond
+0.4 Marcia Griffiths
+0.6 Rita Marley
+0.2 Judy Mowatt
+0.3 The I-Threes|i threes
+0.2 Bob Andy
+0.2 Jacob Miller
+0.3 Garnett Silk
+0.6 Sizzla
+0.6 Capleton
+0.4 Anthony B
+0.3 Luciano
+0.8 Shenseea
+0.6 Alkaline
+0.6 Masicka
+0.4 Skillibeng
+0.3 Govana
+0.3 Jahmiel
+0.4 Charly Black
+0.4 Konshens
+0.6 Busy Signal
+0.8 Sean Kingston
+0.6 Chaka Demus & Pliers|chaka demus and pliers
+0.4 Patra
+0.6 Lady Saw
+0.3 Tanya Stephens
+0.3 Etana
+0.2 Queen Ifrica
+0.3 Jah9
+0.3 Lila Iké|lila ike
+0.3 Kabaka Pyramid
+0.6 Stephen Marley
+0.4 Julian Marley
+0.3 Ky-Mani Marley
+0.4 Skip Marley
+0.4 Coxsone Dodd|clement dodd|clement coxsone dodd
+0.3 Duke Reid
+0.4 Scientist
+0.3 Ernest Ranglin
+0.3 Monty Alexander
+0.2 The Ethiopians
+0.2 Derrick Morgan
+0.2 Owen Gray
+0.2 Tommy McCook
+0.2 Don Drummond
+0.2 Roland Alphonso
+0.2 Count Ossie
+0.2 Mikey Dread
+0.3 Eek-A-Mouse
+0.2 Josey Wales
+0.3 Ninjaman
+0.2 Tiger
+0.2 Papa San
+0.2 Lt. Stitchie
+0.2 Admiral Bailey
+0.4 Wayne Wonder
+0.3 Cocoa Tea
+0.2 Frankie Paul
+0.2 Half Pint
+0.3 Junior Reid
+0.2 Michael Rose
+0.2 Pinchers
+0.4 Mr. Vegas|mr vegas
+0.3 Romain Virgo
+0.3 Christopher Martin
+0.3 Jesse Royal
+0.3 Dexta Daps
+0.4 Valiant
+0.3 Teejay
+0.4 Byron Messia
+0.4 Intence
+0.6 The Wailers`},
+ {cat:"Countries", q:"A musician from Sweden", d:`
 30 ABBA
 14 Avicii
 6 Roxette
@@ -1292,8 +1220,90 @@ const CRATE = [
 0.3 E-Type
 0.6 Basshunter
 0.4 Meshuggah
-0.3 Amon Amarth`},
- {cat:"Countries", q:"Name a musician from Nigeria", d:`
+0.3 Amon Amarth
+0.6 Per Gessle
+0.4 Marie Fredriksson
+0.6 Agnetha Fältskog|agnetha faltskog|agnetha
+0.4 Anni-Frid Lyngstad|frida|anni frid lyngstad
+0.4 Björn Ulvaeus|bjorn ulvaeus
+0.4 Benny Andersson
+0.3 Carola
+0.3 Veronica Maggio
+0.3 Håkan Hellström|hakan hellstrom
+0.4 Laleh
+0.3 Molly Sandén|molly sanden
+0.2 Darin
+0.2 Danny Saucedo
+0.6 Eric Prydz
+0.2 Adrian Lux
+0.2 Otto Knows
+0.4 Galantis
+0.2 Salem Al Fakir
+0.3 Tove Styrke
+0.2 Elliphant
+0.4 Little Dragon
+0.3 Jens Lekman
+0.2 The Radio Dept.|the radio dept|radio dept
+0.3 Shout Out Louds
+0.2 The Sounds
+0.2 Sahara Hotnights
+0.4 Refused
+0.3 Millencolin
+0.3 The Hellacopters
+0.2 Entombed
+0.2 Dismember
+0.3 At the Gates
+0.2 Dark Tranquillity
+0.2 Soilwork
+0.3 HammerFall
+0.2 Therion
+0.3 Katatonia
+0.4 Bathory
+0.6 Yngwie Malmsteen
+0.3 Candlemass
+0.3 Joey Tempest
+0.2 The Ark
+0.2 Lars Winnerbäck|lars winnerback
+0.2 Ted Gärdestad|ted gardestad
+0.2 Cornelis Vreeswijk
+0.2 Evert Taube
+0.3 Monica Zetterlund
+0.2 Jan Johansson
+0.3 Esbjörn Svensson Trio|est|esbjorn svensson
+0.3 Anne Sofie von Otter
+0.3 Jenny Lind
+0.2 Birgit Nilsson
+0.3 Seinabo Sey
+0.4 Snoh Aalegra
+0.3 Bladee
+0.2 Ecco2k
+0.2 Petter
+0.2 Timbuktu
+0.4 Nina Persson
+0.4 Shellback
+0.6 Ludwig Göransson|ludwig goransson
+0.3 Benjamin Ingrosso
+0.2 Lisa Miskovsky
+0.3 Peter Jöback|peter joback
+0.2 Lena Philipsson
+0.3 Frans
+0.3 Felix Sandman
+0.3 John Lundvik
+0.2 Agnes
+0.2 September
+0.2 Rednex
+0.3 Army of Lovers
+0.2 Dr. Bombay
+0.2 Smile.dk
+0.2 Stakka Bo
+0.2 Leila K
+0.2 Clawfinger
+0.2 Backyard Babies
+0.2 Imperiet
+0.2 Ebba Grön|ebba gron
+0.2 Thåström|thastrom
+0.3 Kite`},
+ {cat:"Countries", q:"A musician from Nigeria", d:`
 18 Burna Boy
 16 Wizkid
 12 Davido
@@ -1334,8 +1344,85 @@ const CRATE = [
 0.3 Tekno
 0.2 Runtown
 0.3 Wande Coal
-0.4 Don Jazzy`},
- {cat:"Countries", q:"Name a musician from Ireland", d:`
+0.4 Don Jazzy
+0.3 Lagbaja
+0.2 Onyeka Onwenu
+0.2 Christy Essien-Igbokwe
+0.2 Sonny Okosuns
+0.4 William Onyeabor
+0.2 Haruna Ishola
+0.2 Ayinla Omowura
+0.2 Sikiru Ayinde Barrister
+0.2 Kollington Ayinla
+0.2 Osita Osadebe
+0.2 Victor Uwaifo
+0.2 Rex Lawson
+0.2 Orlando Owoh
+0.6 Tony Allen
+0.6 Asa|aṣa
+0.3 Nneka
+0.4 Johnny Drille
+0.6 Ruger
+0.4 BNXN|buju
+0.6 Oxlade
+0.3 Ladipoe
+0.3 Blaqbonez
+0.4 M.I Abaga|mi abaga|m.i|mi
+0.3 Ice Prince
+0.2 Jesse Jagz
+0.3 Vector
+0.3 Reminisce
+0.3 Lil Kesh
+0.3 Small Doctor
+0.4 Mayorkun
+0.3 Peruzzi
+0.3 Iyanya
+0.4 Timaya
+0.2 Duncan Mighty
+0.2 Harrysong
+0.3 Kcee
+0.2 Skales
+0.3 Banky W
+0.2 Darey
+0.3 Waje
+0.3 Omawumi
+0.3 Niniola
+0.4 Teni
+0.3 Fave
+0.3 Bloody Civilian
+0.2 Qing Madi
+0.4 Young Jonn
+0.3 Pheelz
+0.3 Spyro
+0.3 Crayon
+0.3 Magixx
+0.3 Bella Shmurda
+0.2 Zinoleesky
+0.4 Mohbad
+0.3 Portable
+0.4 9ice
+0.2 Sound Sultan
+0.2 Eedris Abdulkareem
+0.2 Styl-Plus
+0.2 Plantashun Boiz
+0.2 Faze
+0.2 Blackface
+0.3 Dr SID
+0.3 Brymo
+0.3 Cobhams Asuquo
+0.3 Bad Boy Timz
+0.3 Kold AF
+0.4 Ayo Maff
+0.4 Lojay
+0.3 Seyi Shay
+0.3 Chike
+0.3 Majek Fashek
+0.3 Shina Peters
+0.3 Dele Abiodun
+0.2 Bright Chimezie
+0.2 Mike Ejeagha
+0.3 Oliver de Coque`},
+ {cat:"Countries", q:"A musician from Ireland", d:`
 25 U2
 8 The Cranberries|cranberries
 8 Sinéad O'Connor|sinead oconnor
@@ -1376,8 +1463,95 @@ const CRATE = [
 1 Bono
 0.3 Dolores O'Riordan
 0.2 Villagers
-0.2 Lankum`},
- {cat:"Charts", q:"Name a song that hit #1 on the Billboard Hot 100 in 1990", d:`
+0.2 Lankum
+0.4 Mary Black
+0.2 Frances Black
+0.3 Sharon Shannon
+0.3 Moya Brennan
+0.2 Altan
+0.3 The Saw Doctors
+0.2 Aslan
+0.3 Horslips
+0.6 The Undertones
+0.4 Stiff Little Fingers
+0.6 Ash
+0.4 Therapy?|therapy
+0.4 The Divine Comedy|neil hannon
+0.2 Gavin Friday
+0.3 Hothouse Flowers
+0.6 Róisín Murphy|roisin murphy
+0.4 Samantha Mumba
+0.4 B*Witched|bwitched
+0.4 The Coronas
+0.2 The Blizzards
+0.3 Walking on Cars
+0.3 Gilla Band|girl band
+0.6 Inhaler
+0.3 Pillow Queens
+0.2 Just Mustard
+0.2 The Gloaming
+0.2 Iarla Ó Lionáird|iarla o lionaird
+0.6 The Clancy Brothers|liam clancy
+0.6 Luke Kelly
+0.3 Ronnie Drew
+0.3 Paddy Moloney
+0.2 The Bothy Band
+0.2 De Dannan
+0.2 Dónal Lunny|donal lunny
+0.2 Andy Irvine
+0.3 Paul Brady
+0.2 Luka Bloom
+0.2 Mundy
+0.3 Damien Dempsey
+0.2 Jack L
+0.2 Cathy Davey
+0.2 Wallis Bird
+0.3 Nathan Carter
+0.6 Daniel O'Donnell
+0.3 Dana
+0.6 Johnny Logan
+0.2 Linda Martin
+0.2 Eimear Quinn
+0.2 Niamh Kavanagh
+0.4 Celtic Woman
+0.3 Bill Whelan
+0.6 Phil Lynott
+0.6 Gary Moore
+0.4 Shane Filan
+0.4 The Edge
+0.3 Larry Mullen Jr.|larry mullen
+0.3 Adam Clayton
+0.6 Shane MacGowan
+0.3 Andrea Corr
+0.3 Danny O'Donoghue
+0.3 Gary Lightbody
+0.3 Grian Chatten
+0.3 Kevin Shields
+0.6 Two Door Cinema Club
+0.4 James Vincent McMorrow
+0.3 SOAK
+0.4 Bambie Thug
+0.2 Brian Kennedy
+0.3 Mick Flannery
+0.3 Mary Coughlan
+0.2 Sinéad Lohan|sinead lohan
+0.3 Lyra
+0.4 Jerry Fish
+0.4 The Wolfe Tones|wolfe tones
+0.4 The Fureys
+0.3 Foster & Allen
+0.4 Dickie Rock
+0.3 Joe Dolan
+0.4 Mary Byrne
+0.3 Taste
+0.3 Them
+0.3 Nicky Byrne
+0.3 Mark Feehily
+0.3 Kian Egan
+0.3 Stephen Gately
+0.3 Keith Duffy
+0.3 Mikey Graham`},
+ {cat:"Charts", q:"A song that hit #1 on the Billboard Hot 100 in 1990", d:`
 12 Ice Ice Baby ~ Vanilla Ice
 10 Vogue ~ Madonna
 10 Nothing Compares 2 U|nothing compares to you ~ Sinéad O'Connor
@@ -1404,7 +1578,7 @@ const CRATE = [
 0.8 (Can't Live Without Your) Love and Affection|love and affection ~ Nelson
 0.6 I Don't Have the Heart ~ James Ingram
 0.6 Because I Love You (The Postman Song)|because i love you ~ Stevie B`},
- {cat:"Charts", q:"Name a song that hit #1 on the Billboard Hot 100 in 1984", d:`
+ {cat:"Charts", q:"A song that hit #1 on the Billboard Hot 100 in 1984", d:`
 12 When Doves Cry ~ Prince
 10 Jump ~ Van Halen
 10 Like a Virgin ~ Madonna
@@ -1425,7 +1599,7 @@ const CRATE = [
 2 Caribbean Queen (No More Love on the Run)|caribbean queen ~ Billy Ocean
 2 Out of Touch ~ Hall & Oates
 2 Say Say Say ~ Paul McCartney & Michael Jackson`},
- {cat:"Grammys", q:"Name an artist who has won the Grammy for Album of the Year", d:`
+ {cat:"Grammys", q:"An artist whose album won the Grammy for Album of the Year", d:`
 20 Taylor Swift
 10 Adele
 8 Billie Eilish
@@ -1484,8 +1658,11 @@ const CRATE = [
 0.4 João Gilberto|joao gilberto
 0.4 Henry Mancini
 0.3 Judy Garland
-0.3 Bob Newhart`},
- {cat:"Grammys", q:"Name an artist who has won 10 or more Grammys", d:`
+0.3 Bob Newhart
+0.3 Vaughn Meader
+0.3 O Brother, Where Art Thou? soundtrack|o brother where art thou|o brother
+0.3 Ravi Shankar`},
+ {cat:"Grammys", q:"An artist who has won 10 or more Grammys", d:`
 22 Beyoncé|beyonce
 10 Taylor Swift
 8 Kendrick Lamar
@@ -1530,8 +1707,22 @@ const CRATE = [
 1 Henry Mancini
 0.5 Georg Solti|sir georg solti
 0.4 Pierre Boulez
-0.3 Jimmy Sturr`},
- {cat:"Classical", q:"Name a composer of the Baroque era", d:`
+0.3 Jimmy Sturr
+1 The Chicks|dixie chicks
+1.5 Foo Fighters
+1 Dave Grohl
+0.4 Ricky Skaggs
+0.4 Chet Atkins
+0.6 Leonard Bernstein
+0.4 Itzhak Perlman
+0.4 Vladimir Horowitz
+0.3 Robert Shaw
+0.4 Béla Fleck|bela fleck
+0.6 Duke Ellington
+0.6 Jack White
+1 John Legend
+1 Carlos Santana|santana`},
+ {cat:"Classical", q:"A composer of the Baroque era", d:`
 30 Johann Sebastian Bach|bach|js bach
 20 Antonio Vivaldi|vivaldi
 14 George Frideric Handel|handel|händel
@@ -1555,8 +1746,44 @@ const CRATE = [
 0.3 Jan Dismas Zelenka|zelenka
 0.5 Heinrich Schütz|schutz
 0.4 Girolamo Frescobaldi|frescobaldi
-0.4 Barbara Strozzi|strozzi`},
- {cat:"Opera", q:"Name an opera by Giuseppe Verdi", d:`
+0.4 Barbara Strozzi|strozzi
+0.3 Johann Joseph Fux|fux
+0.3 Jan Pieterszoon Sweelinck|sweelinck
+0.3 Giovanni Gabrieli|gabrieli
+0.2 Johann Friedrich Fasch|fasch
+0.3 Johann Adolph Hasse|hasse
+0.3 Francesco Geminiani|geminiani
+0.3 Pietro Locatelli|locatelli
+0.4 Benedetto Marcello
+0.4 Alessandro Marcello
+0.2 Antonio Caldara|caldara
+0.2 Giovanni Bononcini|bononcini
+0.2 Johann Kuhnau|kuhnau
+0.2 Georg Böhm|georg bohm
+0.3 Johann Jakob Froberger|froberger
+0.6 Carl Philipp Emanuel Bach|cpe bach|c p e bach
+0.3 Wilhelm Friedemann Bach|wf bach
+0.4 Marin Marais|marais
+0.3 Élisabeth Jacquet de La Guerre|jacquet de la guerre
+0.3 Francesca Caccini|caccini
+0.3 Jean-Marie Leclair|leclair
+0.3 Antonio Lotti|lotti
+0.2 Nicola Porpora|porpora
+0.3 Johann David Heinichen|heinichen
+0.2 Christoph Graupner|graupner
+0.2 Johann Christoph Pepusch|pepusch
+0.3 Gottfried Heinrich Stölzel|stolzel
+0.2 Michel Corrette|corrette
+0.3 Jean-Féry Rebel|rebel
+0.2 André Campra|campra
+0.4 Allegri|gregorio allegri
+0.3 Giacomo Carissimi|carissimi
+0.2 Stefano Landi|landi
+0.3 Matthew Locke|locke
+0.3 John Blow|blow
+0.2 Antonio Cesti|cesti
+0.2 Francesco Cavalli|cavalli`},
+ {cat:"Opera", q:"An opera by Giuseppe Verdi", d:`
 25 La traviata|traviata
 22 Aida|aïda
 15 Rigoletto
@@ -1585,332 +1812,100 @@ const CRATE = [
 0.3 I due Foscari
 0.1 La battaglia di Legnano
 0.1 Jérusalem|jerusalem`},
- {cat:"Country", q:"Name a Dolly Parton song", d:`
-35 Jolene
-20 9 to 5|nine to five
-15 I Will Always Love You
-6 Coat of Many Colors
-6 Islands in the Stream
-3 Here You Come Again
-1.5 Two Doors Down
-1.5 Love Is Like a Butterfly
-0.5 The Bargain Store
-0.6 Joshua
-0.6 Dumb Blonde
-0.6 Mule Skinner Blues
-0.4 Heartbreaker
-0.3 Why'd You Come in Here Lookin' Like That
-0.3 Yellow Roses
-0.3 Tennessee Homesick Blues
-0.3 Applejack
-0.8 My Tennessee Mountain Home
-0.5 Light of a Clear Blue Morning
-0.4 Baby I'm Burnin'
-0.3 Old Flames Can't Hold a Candle to You
-0.4 Backwoods Barbie
-0.4 Eagle When She Flies
-1 Rockstar`},
- {cat:"Country", q:"Name a Johnny Cash song", d:`
-25 Ring of Fire
-18 Folsom Prison Blues
-14 I Walk the Line
-6 A Boy Named Sue
-10 Hurt
-3 Man in Black
-4 Jackson
-1.5 Get Rhythm
-1.5 One Piece at a Time
-0.6 Cry! Cry! Cry!|cry cry cry
-1 Big River
-2 (Ghost) Riders in the Sky|ghost riders in the sky|riders in the sky
-2 The Man Comes Around
-1.5 Personal Jesus
-2 God's Gonna Cut You Down
-2 I've Been Everywhere
-0.8 Sunday Mornin' Comin' Down|sunday morning coming down
-1 Highwayman
-0.4 Daddy Sang Bass
-0.4 Five Feet High and Rising
-0.6 Don't Take Your Guns to Town
-0.4 The Ballad of Ira Hayes|ballad of ira hayes
-0.3 Understand Your Man
-0.6 Orange Blossom Special
-0.6 San Quentin
-0.6 Delia's Gone
-0.4 Rusty Cage
-0.4 Hey Porter
-0.2 Home of the Blues
-0.3 Guess Things Happen That Way
-0.3 Ballad of a Teenage Queen
-0.2 Flesh and Blood
-0.3 Ragged Old Flag
-0.5 Cocaine Blues
-0.3 The Wanderer`},
- {cat:"Hip-Hop", q:"Name a rapper or hip-hop act from Atlanta", d:`
-12 OutKast|outkast
-5 André 3000|andre 3000|andre
-2 Big Boi
-8 Ludacris
-8 T.I.|ti
-8 Future
-6 Gucci Mane
-5 Young Thug
-5 21 Savage
-5 Lil Baby
-8 Migos
-3 Quavo
-3 Offset
-2 Takeoff
-4 Lil Jon
-3 2 Chainz|two chainz
-1.5 Killer Mike
-2 Jeezy|young jeezy
-1.5 B.o.B|bob
-2 Soulja Boy
-2 Childish Gambino|donald glover
-2 Playboi Carti
-2 Gunna
-2 Lil Yachty
-1 Kris Kross
-1 JID|j.i.d
-0.5 EarthGang
-1 Waka Flocka Flame
-0.3 Young Nudy
-1 Latto
-0.6 Goodie Mob
-1 CeeLo Green|cee lo green|cee lo
-2 Lil Nas X
-0.8 Jermaine Dupri
-0.5 Rich Homie Quan
-0.5 Ying Yang Twins
-0.3 Dem Franchize Boyz
-0.3 Trinidad James
-0.6 Ken Carson
-0.3 Destroy Lonely
-0.3 Baby Tate`},
- {cat:"Hip-Hop", q:"Name a member of N.W.A", d:`
+ {cat:"Country", q:"A member of the country supergroup the Highwaymen", d:`
+35 Johnny Cash
+30 Willie Nelson
+20 Waylon Jennings
+15 Kris Kristofferson`},
+ {cat:"Country", q:"Anyone who has been a member of the Chicks (Dixie Chicks)", d:`
+45 Natalie Maines
+25 Martie Maguire|martie erwin|martie seidel
+22 Emily Strayer|emily robison|emily erwin
+2 Laura Lynch
+1 Robin Lynn Macy`},
+ {cat:"Hip-Hop", q:"A member of A Tribe Called Quest", d:`
+45 Q-Tip|q tip|kamaal fareed
+30 Phife Dawg|phife|malik taylor
+18 Ali Shaheed Muhammad
+7 Jarobi White|jarobi`},
+ {cat:"Hip-Hop", q:"A member of N.W.A", d:`
 30 Ice Cube
 30 Dr. Dre|dr dre|dre
 25 Eazy-E|eazy e|easy e
 6 MC Ren
 5 DJ Yella
 2 Arabian Prince`},
- {cat:"Jazz", q:"Name a Miles Davis album", d:`
-40 Kind of Blue
-15 Bitches Brew
-5 Sketches of Spain
-5 Birth of the Cool
-2 'Round About Midnight|round about midnight|round midnight
-2 Milestones
-3 In a Silent Way
-1.5 Porgy and Bess
-1 Miles Ahead
-0.6 E.S.P.|esp
-0.8 Miles Smiles
-0.6 Nefertiti
-0.4 Sorcerer
-0.4 Filles de Kilimanjaro
-0.8 On the Corner
-0.6 A Tribute to Jack Johnson|jack johnson
-1 Tutu
-0.5 Doo-Bop
-0.5 Relaxin' with the Miles Davis Quintet|relaxin
-0.5 Cookin' with the Miles Davis Quintet|cookin
-0.3 Workin' with the Miles Davis Quintet|workin
-0.3 Steamin' with the Miles Davis Quintet|steamin
-0.6 Someday My Prince Will Come
-0.4 Seven Steps to Heaven
-0.3 Agharta
-0.3 Pangaea
-0.3 Live-Evil
-0.3 The Man with the Horn
-0.3 You're Under Arrest
-0.2 Big Fun
-0.3 Bags' Groove
-0.2 Walkin'
-0.4 Ascenseur pour l'échafaud|elevator to the gallows|lift to the scaffold
-0.2 Get Up with It
-0.1 Water Babies
-0.1 Aura
-0.1 Decoy
-0.1 Star People
-0.1 Amandla`},
- {cat:"Blues", q:"Name a blues musician", d:`
-20 B.B. King|bb king
-12 Muddy Waters
-12 Robert Johnson
-6 Howlin' Wolf|howling wolf
-6 John Lee Hooker
-3 Etta James
-4 Buddy Guy
-6 Stevie Ray Vaughan|srv
-2 Albert King
-1.5 Freddie King
-2 Lead Belly|leadbelly
-2 Bessie Smith
-1.5 Ma Rainey
-1 Willie Dixon
-1 Elmore James
-1 Lightnin' Hopkins|lightning hopkins
-1 Son House
-0.6 Skip James
-1 Big Mama Thornton
-0.6 Koko Taylor
-0.6 T-Bone Walker
-0.6 Little Walter
-0.6 Sonny Boy Williamson
-1 Taj Mahal
-0.6 Keb' Mo'|keb mo
-1.5 Gary Clark Jr.|gary clark jr|gary clark
-0.6 Christone "Kingfish" Ingram|kingfish|christone ingram
-1 Bonnie Raitt
-1.5 Joe Bonamassa
-0.4 R.L. Burnside|rl burnside
-0.2 Junior Kimbrough
-0.6 Mississippi John Hurt
-0.5 Blind Willie Johnson
-0.4 Charley Patton|charlie patton
-0.4 Memphis Minnie
-0.3 Otis Rush
-0.2 Magic Sam
-0.2 Hound Dog Taylor
-0.4 Albert Collins
-0.4 Robert Cray
-0.5 Jimmy Reed
-0.4 Johnny Winter`},
- {cat:"Metal", q:"Name a heavy metal band", d:`
-25 Metallica
-10 Iron Maiden
-10 Black Sabbath
-4 Judas Priest
-4 Slayer
-4 Megadeth
-2 Anthrax
-4 Pantera
-3 Motörhead|motorhead
-4 Slipknot
-4 System of a Down|soad
-3 Tool
-1 Dio
-1.5 Def Leppard
-1.5 Mötley Crüe|motley crue
-2 Korn
-1 Lamb of God
-1 Mastodon
-1.5 Gojira
-1 Sepultura
-0.6 Opeth
-0.8 Dream Theater
-2 Avenged Sevenfold|a7x
-1.5 Disturbed
-1.5 Ghost
-0.6 Sabaton
-2 Rammstein
-1 Deftones
-0.4 Machine Head
-0.3 Testament
-0.2 Exodus
-0.3 Venom
-0.2 Celtic Frost
-0.3 Bathory
-0.4 Mayhem
-0.2 Emperor
-0.4 Cannibal Corpse
-0.3 Death
-0.2 Morbid Angel
-0.3 Napalm Death
-0.2 Carcass
-0.4 Meshuggah
-0.4 Arch Enemy
-0.2 In Flames
-0.6 Nightwish
-0.3 Helloween
-0.3 Manowar
-0.2 Saxon
-0.5 Scorpions
-0.2 Accept
-0.2 Kreator
-0.6 Bring Me the Horizon|bmth
-0.4 Trivium
-0.3 Killswitch Engage
-0.8 Babymetal
-0.4 Spiritbox
-0.6 Sleep Token
-0.3 Whitesnake`},
- {cat:"Punk", q:"Name a punk band formed in the 1970s", d:`
-25 Ramones
-22 Sex Pistols
-16 The Clash|clash
-3 Buzzcocks
-2 The Damned|damned
-4 Dead Kennedys
-3 Black Flag
-4 Misfits|the misfits
-1 Television
-2 Blondie
-0.6 Wire
-0.6 X-Ray Spex
-0.5 The Slits|slits
-1 Siouxsie and the Banshees|siouxsie
-0.4 Stiff Little Fingers
-0.6 The Undertones|undertones
-1.5 The Jam|jam
-0.5 Generation X
-0.3 Germs
-0.4 X
-0.3 Dead Boys
-0.3 Richard Hell and the Voidoids|the voidoids
-0.6 New York Dolls|the new york dolls
-1 Bad Brains
-0.3 Crass
-0.3 Sham 69
-0.2 The Adverts
-0.2 UK Subs
-0.6 Descendents
-0.4 Circle Jerks
-0.4 The Saints
-0.2 Radio Birdman`},
- {cat:"Latin", q:"Name a reggaeton artist", d:`
-22 Bad Bunny
-16 Daddy Yankee
-8 J Balvin
-5 Ozuna
-6 Karol G
-5 Maluma
-3 Nicky Jam
-3 Don Omar
-2 Wisin & Yandel|wisin y yandel|wisin and yandel
-1 Wisin
-1 Yandel
-2 Anuel AA|anuel
-2 Feid
-2 Rauw Alejandro
-1 Tego Calderón|tego calderon
-1.5 Ivy Queen
-0.5 Arcángel|arcangel
-0.3 De La Ghetto
-1 Farruko
-1 Myke Towers
-0.6 Sech
-0.6 Jhayco|jhay cortez
-0.6 Manuel Turizo
-1 Becky G
-0.5 Natti Natasha
-0.4 Zion & Lennox|zion y lennox
-0.3 Plan B
-0.3 Tito El Bambino
-0.3 Lunay
-0.6 Young Miko
-0.3 Blessd
-0.3 Ryan Castro
-1 Rosalía|rosalia
-1.5 Luis Fonsi
-0.3 Bryant Myers
-0.4 Mora
-0.2 Jowell & Randy
-0.3 Héctor el Father|hector el father
-0.4 Tainy`},
- {cat:"Countries", q:"Name a musician from Brazil", d:`
+ {cat:"Jazz", q:"A track on Miles Davis's Kind of Blue", d:`
+40 So What
+20 Blue in Green
+18 All Blues
+12 Freddie Freeloader
+10 Flamenco Sketches`},
+ {cat:"Blues", q:"A song Robert Johnson recorded", d:`
+22 Cross Road Blues|crossroads|cross roads|crossroad blues
+16 Sweet Home Chicago
+12 Hellhound on My Trail|hell hound on my trail
+8 Love in Vain
+6 Me and the Devil Blues
+4 Come On in My Kitchen
+4 Kind Hearted Woman Blues|kind hearted woman
+3 I Believe I'll Dust My Broom|dust my broom
+3 Ramblin' on My Mind|rambling on my mind
+3 Terraplane Blues
+3 Walkin' Blues|walking blues
+2 Traveling Riverside Blues|travelling riverside blues
+2 Stop Breakin' Down Blues|stop breaking down
+2 If I Had Possession over Judgment Day
+2 Preachin' Blues (Up Jumped the Devil)|preachin blues|preaching blues
+1.5 32-20 Blues
+1.5 Stones in My Passway
+1 When You Got a Good Friend
+1 Phonograph Blues
+1 They're Red Hot
+1 Dead Shrimp Blues
+1 Last Fair Deal Gone Down
+1 I'm a Steady Rollin' Man|steady rollin man
+1 From Four Until Late
+1 Little Queen of Spades
+1 Malted Milk
+0.8 Drunken Hearted Man
+0.8 Honeymoon Blues
+0.8 Milkcow's Calf Blues`},
+ {cat:"Metal", q:"A Metallica studio album", d:`
+30 Master of Puppets
+15 Metallica (The Black Album)|metallica|the black album|black album
+12 Ride the Lightning
+10 ...And Justice for All|and justice for all|justice
+8 Kill 'Em All|kill em all
+5 Load
+3 Reload
+4 St. Anger|st anger|saint anger
+4 Death Magnetic
+3 Hardwired... to Self-Destruct|hardwired to self destruct|hardwired
+4 72 Seasons`},
+ {cat:"Punk", q:"Anyone who has been a member of the Ramones", d:`
+30 Joey Ramone|joey|jeffrey hyman
+25 Johnny Ramone|johnny|john cummings
+22 Dee Dee Ramone|dee dee|douglas colvin
+10 Tommy Ramone|tommy|thomas erdelyi
+7 Marky Ramone|marky|marc bell
+3 C.J. Ramone|cj ramone|cj|christopher ward
+2 Richie Ramone|richie|richard reinhardt
+1 Elvis Ramone|clem burke`},
+ {cat:"Latin", q:"A Shakira studio album", d:`
+6 Magia
+4 Peligro
+12 Pies Descalzos
+10 ¿Dónde Están los Ladrones?|donde estan los ladrones
+25 Laundry Service
+10 Fijación Oral, Vol. 1|fijacion oral|fijacion oral vol 1
+14 Oral Fixation, Vol. 2|oral fixation|oral fixation vol 2
+10 She Wolf
+6 Sale el Sol
+4 Shakira
+4 El Dorado
+8 Las Mujeres Ya No Lloran`},
+ {cat:"Countries", q:"A musician from Brazil", d:`
 10 Anitta
 6 Gilberto Gil
 6 Caetano Veloso
@@ -1948,254 +1943,185 @@ const CRATE = [
 1 Michel Teló|michel telo
 0.4 CSS|cansei de ser sexy
 1 Alok
-0.3 Céu|ceu`},
- {cat:"60s", q:"Name a Beach Boys song", d:`
-20 Good Vibrations
-12 Surfin' U.S.A.|surfin usa|surfing usa
-12 Wouldn't It Be Nice
-10 God Only Knows
-8 California Girls
-6 Kokomo
-4 I Get Around
-4 Barbara Ann
-3 Help Me, Rhonda|help me rhonda
-3 Fun, Fun, Fun|fun fun fun
-3 Sloop John B
-1.5 In My Room
-1.5 Don't Worry Baby
-1.5 Surfer Girl
-1.5 Little Deuce Coupe
-0.5 409
-0.4 Do It Again
-0.6 Heroes and Villains
-0.6 Caroline, No|caroline no
-0.4 Darlin'|darling
-0.6 Surfin' Safari|surfing safari
-0.3 Surfin'
-0.3 Be True to Your School
-0.3 Dance, Dance, Dance
-0.4 Sail On, Sailor
-0.3 Disney Girls
-0.2 Then I Kissed Her
-0.3 I Can Hear Music
-0.2 Good Timin'
-0.2 Forever
-0.2 Feel Flows
-0.3 'Til I Die|til i die
-0.2 Wild Honey
-0.2 Rock and Roll Music`},
- {cat:"70s", q:"Name a disco song from the 1970s", d:`
-15 Stayin' Alive|staying alive ~ Bee Gees
-14 I Will Survive ~ Gloria Gaynor
-6 Le Freak ~ Chic
-6 Dancing Queen ~ ABBA
-4 Night Fever ~ Bee Gees
-8 Y.M.C.A.|ymca ~ Village People
-5 Disco Inferno ~ The Trammps
-4 I Feel Love ~ Donna Summer
-2 Ring My Bell ~ Anita Ward
-3 Hot Stuff ~ Donna Summer
-2 Last Dance ~ Donna Summer
-3 Boogie Wonderland ~ Earth, Wind & Fire
-6 September ~ Earth, Wind & Fire
-1 Got to Be Real ~ Cheryl Lynn
-1 Don't Leave Me This Way ~ Thelma Houston
-0.6 Love Hangover ~ Diana Ross
-1 Rock the Boat ~ The Hues Corporation
-1 The Hustle ~ Van McCoy
-3 Kung Fu Fighting ~ Carl Douglas
-1.5 Car Wash ~ Rose Royce
-1 Shake Your Groove Thing ~ Peaches & Herb
-3 We Are Family ~ Sister Sledge
-1.5 Good Times ~ Chic
-1 Bad Girls ~ Donna Summer
-1.5 Macho Man ~ Village People
-1.5 Don't Stop 'Til You Get Enough ~ Michael Jackson
-1.5 You Should Be Dancing ~ Bee Gees
-0.8 Love to Love You Baby ~ Donna Summer
-1 Get Down Tonight ~ KC and the Sunshine Band
-1.5 That's the Way (I Like It)|thats the way i like it ~ KC and the Sunshine Band
-1 Boogie Oogie Oogie ~ A Taste of Honey
-0.6 Never Can Say Goodbye ~ Gloria Gaynor
-0.6 I Love the Nightlife ~ Alicia Bridges
-0.4 Heaven Must Be Missing an Angel ~ Tavares
-0.8 Ladies' Night ~ Kool & the Gang
-0.6 Knock on Wood ~ Amii Stewart
-2 Lady Marmalade ~ Labelle
-0.3 Native New Yorker ~ Odyssey
-0.3 Born to Be Alive ~ Patrick Hernandez
-0.4 Disco Duck ~ Rick Dees
-0.3 Fly, Robin, Fly ~ Silver Convention
-0.4 Turn the Beat Around ~ Vicki Sue Robinson
-0.3 Ain't No Stoppin' Us Now ~ McFadden & Whitehead
-0.3 Shame ~ Evelyn "Champagne" King
-0.4 Rock Your Baby ~ George McCrae`},
- {cat:"50s", q:"Name an Elvis Presley song", d:`
-15 Hound Dog
-12 Jailhouse Rock
-12 Can't Help Falling in Love
+0.3 Céu|ceu
+0.3 Pixinguinha
+0.3 Noel Rosa
+0.3 Ary Barroso
+0.3 Dorival Caymmi
+0.4 Nara Leão|nara leao
+0.3 Paulinho da Viola
+0.3 Beth Carvalho
+0.3 Clara Nunes
+0.4 Zeca Pagodinho
+0.3 Martinho da Vila
+0.3 Alcione
+0.2 Jorge Aragão|jorge aragao
+0.2 Arlindo Cruz
+0.6 Ney Matogrosso
+0.3 Secos & Molhados|secos e molhados
+0.6 Raul Seixas
+0.6 Legião Urbana|legiao urbana
+0.4 Renato Russo
+0.4 Titãs|titas
+0.4 Os Paralamas do Sucesso|paralamas do sucesso|paralamas
+0.3 Barão Vermelho|barao vermelho
+0.4 Cazuza
+0.3 Lulu Santos
+0.2 Marina Lima
+0.4 Cássia Eller|cassia eller
+0.4 Skank
+0.3 Jota Quest
+0.4 Charlie Brown Jr.|charlie brown jr
+0.4 Angra
+0.6 Max Cavalera
+0.4 Soulfly
+0.4 Chico Science & Nação Zumbi|chico science|nacao zumbi
+0.3 Lenine
+0.4 Carlinhos Brown
+0.4 Daniela Mercury
+0.3 Claudia Leitte
+0.4 Olodum
+0.3 Moreno Veloso
+0.4 Tom Zé|tom ze
+0.6 Arthur Verocai
+0.6 Marcos Valle
+0.3 Edu Lobo
+0.3 João Bosco|joao bosco
+0.3 Ivan Lins
+0.3 Egberto Gismonti
+0.4 Airto Moreira
+0.4 Flora Purim
+0.6 Eumir Deodato|deodato
+0.3 Naná Vasconcelos|nana vasconcelos
+0.4 Luiz Bonfá|luiz bonfa
+0.2 Laurindo Almeida
+0.8 Heitor Villa-Lobos|villa lobos|villa-lobos
+0.2 Gonzaguinha
+0.2 Dominguinhos
+0.3 Elba Ramalho
+0.3 Alceu Valença|alceu valenca
+0.3 Zé Ramalho|ze ramalho
+0.4 Belchior
+0.2 Fagner
+0.4 Erasmo Carlos
+0.2 Wanderléa|wanderlea
+0.6 Xuxa
+0.3 Sandy & Junior|sandy e junior
+0.4 Gloria Groove
+0.4 Luísa Sonza|luisa sonza
+0.3 IZA
+0.3 Jorge & Mateus|jorge e mateus
+0.4 Gusttavo Lima
+0.3 Henrique & Juliano|henrique e juliano
+0.3 Chitãozinho & Xororó|chitaozinho e xororo
+0.3 Zezé Di Camargo & Luciano|zeze di camargo
+0.2 Paula Fernandes
+0.4 Vintage Culture
+0.3 Criolo
+0.4 Emicida
+0.4 Racionais MC's|racionais mcs|racionais
+0.3 Mano Brown
+0.2 Sabotage
+0.4 MC Kevin o Chris
+0.3 MC Livinho
+0.4 Matuê|matue
+0.3 Baco Exu do Blues
+0.2 BK
+0.3 Djonga
+0.4 Tim Bernardes
+0.2 O Terno
+0.3 Boogarins
+0.3 Maria Rita
+0.3 Vanessa da Mata
+0.3 Ana Carolina
+0.3 Adriana Calcanhotto
+0.2 Nando Reis
+0.2 Arnaldo Antunes
+0.2 Bonde do Rolê|bonde do role
+0.4 João Donato|joao donato
+0.6 Elza Soares
+0.2 Clementina de Jesus
+0.3 Jackson do Pandeiro`},
+ {cat:"60s", q:"Anyone who has been a member of the Beach Boys", d:`
+35 Brian Wilson
+20 Mike Love
+14 Carl Wilson
+14 Dennis Wilson
+10 Al Jardine
+3 Bruce Johnston
+1.5 David Marks
+0.6 Blondie Chaplin
+0.6 Ricky Fataar
+1 Glen Campbell`},
+ {cat:"70s", q:"A song on the Saturday Night Fever soundtrack", d:`
+30 Stayin' Alive|staying alive ~ Bee Gees
+15 Night Fever ~ Bee Gees
+14 How Deep Is Your Love ~ Bee Gees
+8 More Than a Woman ~ Bee Gees / Tavares
+8 Disco Inferno ~ The Trammps
+6 You Should Be Dancing ~ Bee Gees
+5 Jive Talkin' ~ Bee Gees
+4 If I Can't Have You ~ Yvonne Elliman
+3 A Fifth of Beethoven ~ Walter Murphy
+2 Boogie Shoes ~ KC and the Sunshine Band
+1.5 Open Sesame ~ Kool & the Gang
+0.8 Calypso Breakdown ~ Ralph MacDonald
+0.6 Night on Disco Mountain ~ David Shire
+0.6 Manhattan Skyline ~ David Shire
+0.6 Salsation ~ David Shire
+0.6 K-Jee ~ MFSB`},
+ {cat:"50s", q:"One of Elvis Presley's US #1 hits", d:`
+20 Hound Dog
+15 Jailhouse Rock
+12 Heartbreak Hotel
+10 Don't Be Cruel
+8 All Shook Up
+8 Love Me Tender
 6 Suspicious Minds
-6 Love Me Tender
-5 Heartbreak Hotel
-4 Blue Suede Shoes
-4 All Shook Up
-3 Don't Be Cruel
-2 Burning Love
-2 In the Ghetto
-2 Return to Sender
-3 Viva Las Vegas
-1.5 It's Now or Never
-2 A Little Less Conversation
-1 Always on My Mind
-1.5 Are You Lonesome Tonight?|are you lonesome tonight
-1 (Let Me Be Your) Teddy Bear|teddy bear
-1.5 Blue Christmas
-0.4 Way Down
-0.6 (You're the) Devil in Disguise|devil in disguise
-0.4 Good Luck Charm
-0.4 Kentucky Rain
-0.6 An American Trilogy|american trilogy
-0.2 Treat Me Nice
-0.2 Too Much
-0.8 That's All Right|thats all right mama
-0.4 Mystery Train
-0.3 Blue Moon of Kentucky
-0.3 Trouble
-0.3 Hard Headed Woman
-0.2 Wooden Heart
-0.3 Surrender
-0.3 Crying in the Chapel
-0.6 If I Can Dream
-0.3 King Creole
-0.2 Moody Blue
-0.2 Rubberneckin'
-0.4 Polk Salad Annie
-0.2 Steamroller Blues
-0.2 Separate Ways
-0.6 My Way`},
- {cat:"2000s", q:"Name a Rihanna song", d:`
-20 Umbrella
-10 Diamonds
-6 Work
-6 We Found Love
-5 Only Girl (In the World)|only girl
-4 Rude Boy
-4 Disturbia
-4 Don't Stop the Music
-3 S&M|s and m
-3 Pon de Replay
-2 SOS
-3 Love on the Brain
-2 Needed Me
-2 Stay
-2 What's My Name?|whats my name
-1.5 Where Have You Been
-2 Bitch Better Have My Money|bbhmm
-1 Take a Bow
-1 Shut Up and Drive
-1 Unfaithful
-0.6 Hate That I Love You
-0.4 Rehab
-0.4 Russian Roulette
-0.3 Te Amo
-0.6 California King Bed
-0.6 Man Down
-0.6 Cheers (Drink to That)|cheers
-0.3 Cockiness (Love It)|cockiness
-0.6 Pour It Up
-0.6 Kiss It Better
-1 Lift Me Up
-1 FourFiveSeconds|four five seconds
-1.5 This Is What You Came For
-2 Love the Way You Lie
-1 Wild Thoughts
-0.3 Consideration
-0.3 Higher
-0.4 Desperado
-0.2 Sex with Me`},
- {cat:"Pop", q:"Name a Billie Eilish song", d:`
-20 Bad Guy
-8 Ocean Eyes
-6 Lovely
-5 When the Party's Over|when the partys over
-5 Everything I Wanted
-5 Happier Than Ever
-6 What Was I Made For?|what was i made for
-10 Birds of a Feather
-4 No Time to Die
-2 Bury a Friend
-1 You Should See Me in a Crown
-1.5 Lunch
-1.5 Therefore I Am
-0.8 My Future
-1 Idontwannabeyouanymore
-0.8 Bellyache
-0.8 Wish You Were Gay
-0.8 All the Good Girls Go to Hell
-0.6 Copycat
-0.4 Xanny
-0.6 Bored
-0.6 Your Power
-0.4 Lost Cause
-0.3 NDA
-0.3 Getting Older
-0.4 TV
-0.2 The 30th
-1 Wildflower
-1 Chihiro
-0.6 The Greatest
-0.6 L'Amour de Ma Vie|lamour de ma vie
-0.4 Skinny
-0.3 Blue
-0.3 Six Feet Under
-0.2 Party Favor
-0.3 Ilomilo
-0.2 My Strange Addiction
-0.2 8
-0.2 Watch`},
- {cat:"Latin", q:"Name a Bad Bunny song", d:`
-12 Tití Me Preguntó|titi me pregunto
-10 Me Porto Bonito
-8 Dákiti|dakiti
-6 I Like It
-4 Mía|mia
-3 Callaíta|callaita
-4 Yo Perreo Sola
-3 Safaera
-3 Monaco
-4 Ojitos Lindos
-3 Moscow Mule
-2 Efecto
-1.5 Un x100to
-2 Where She Goes
-8 DtMF|debi tirar mas fotos|debí tirar más fotos
-4 Baile Inolvidable
-3 NuevaYol
-0.6 Vete
-1 La Canción|la cancion
-1 Si Veo a Tu Mamá|si veo a tu mama
-0.6 Soy Peor
-0.6 Amorfoda
-0.5 Estamos Bien
-0.5 Chambea
-1 Te Boté|te bote
-0.3 Solo de Mí|solo de mi
-0.3 Tú No Metes Cabra|tu no metes cabra
-0.4 La Difícil|la dificil
-0.3 Ignorantes
-1 Yonaguni
-0.6 Neverita
-0.4 Party
-0.4 Después de la Playa|despues de la playa
-0.3 Andrea
-0.6 Perro Negro
-0.4 Voy a Llevarte Pa PR
-0.3 Bokete
-0.6 Lo Que Le Pasó a Hawaii|lo que le paso a hawaii
-0.6 Weltita
-0.3 Pitorro de Coco
-0.4 Ketu TeCré|ketu tecre`},
- {cat:"Broadway", q:"Name a musical by Andrew Lloyd Webber", d:`
+4 Are You Lonesome Tonight?|are you lonesome tonight
+4 It's Now or Never
+3 (Let Me Be Your) Teddy Bear|teddy bear
+1.5 Too Much
+1.5 Stuck on You
+1.5 Good Luck Charm
+1 Hard Headed Woman
+1 A Big Hunk o' Love|big hunk o love
+1 Surrender
+0.8 Don't
+0.8 I Want You, I Need You, I Love You`},
+ {cat:"2000s", q:"A Rihanna studio album", d:`
+25 Anti
+15 Good Girl Gone Bad
+12 Loud
+10 Rated R
+8 Unapologetic
+8 Talk That Talk
+5 A Girl like Me
+4 Music of the Sun`},
+ {cat:"Pop", q:"A song on Billie Eilish's album When We All Fall Asleep, Where Do We Go?", d:`
+40 Bad Guy
+10 When the Party's Over|when the partys over
+10 Bury a Friend
+6 You Should See Me in a Crown
+6 All the Good Girls Go to Hell
+6 Wish You Were Gay
+4 Ilomilo
+3 Xanny
+3 Listen Before I Go
+3 I Love You
+3 My Strange Addiction
+2 8
+2 Goodbye`},
+ {cat:"Latin", q:"A Bad Bunny studio album", d:`
+25 Un Verano Sin Ti
+20 YHLQMDLG|yo hago lo que me da la gana
+15 Debí Tirar Más Fotos|debi tirar mas fotos|dtmf
+12 X 100pre|x100pre|por siempre
+10 El Último Tour del Mundo|el ultimo tour del mundo
+8 Nadie Sabe Lo Que Va a Pasar Mañana|nadie sabe|nadie sabe lo que va a pasar manana
+3 Oasis
+2 Las Que No Iban a Salir|las que no iban a salir`},
+ {cat:"Broadway", q:"A musical by Andrew Lloyd Webber", d:`
 30 The Phantom of the Opera|phantom of the opera|phantom
 20 Cats
 12 Evita
@@ -2215,41 +2141,13 @@ const CRATE = [
 0.2 The Beautiful Game
 0.1 Stephen Ward
 0.1 The Likes of Us`},
- {cat:"Gospel", q:"Name a gospel musician", d:`
-20 Mahalia Jackson
-14 Kirk Franklin
-8 CeCe Winans
-3 BeBe Winans
-2 The Winans|winans
-6 Yolanda Adams
-4 Sister Rosetta Tharpe|rosetta tharpe
-3 Andraé Crouch|andrae crouch
-3 Shirley Caesar
-2 Fred Hammond
-2 Donnie McClurkin
-2 Tasha Cobbs Leonard|tasha cobbs
-3 Marvin Sapp
-1.5 Tye Tribbett
-1 Israel Houghton
-1 Hezekiah Walker
-2 The Clark Sisters|clark sisters
-1 Karen Clark Sheard
-0.6 Richard Smallwood
-1 James Cleveland
-1 Thomas A. Dorsey|thomas dorsey
-1 The Blind Boys of Alabama|blind boys of alabama
-2 The Staple Singers|staple singers|mavis staples
-2 Maverick City Music|maverick city
-0.6 Jonathan McReynolds
-0.4 Le'Andria Johnson|leandria johnson
-1.5 Mary Mary|erica campbell|tina campbell
-0.5 Kim Burrell
-0.5 Smokie Norful
-0.4 William McDowell
-0.6 Travis Greene
-0.4 Koryn Hawthorne
-1 Lecrae`},
- {cat:"Festivals", q:"Name an act that performed at Woodstock in 1969", d:`
+ {cat:"Gospel", q:"A member of the gospel group the Clark Sisters", d:`
+35 Karen Clark Sheard|karen clark
+22 Twinkie Clark|elbernita clark
+18 Dorinda Clark-Cole|dorinda clark cole|dorinda clark
+15 Jacky Clark Chisholm|jacky clark
+10 Denise Clark Bradford|denise clark`},
+ {cat:"Festivals", q:"An act that performed at Woodstock in 1969", d:`
 25 Jimi Hendrix
 14 Janis Joplin
 8 The Who|who
@@ -2281,7 +2179,7 @@ const CRATE = [
 0.1 Sweetwater
 0.1 Quill
 0.1 Keef Hartley Band`},
- {cat:"World", q:"Name an instrument used in Indian classical music", d:`
+ {cat:"World", q:"An instrument used in Indian classical music", d:`
 30 Sitar
 25 Tabla
 6 Harmonium
@@ -2309,7 +2207,7 @@ const CRATE = [
 0.3 Thavil
 0.3 Dilruba
 0.4 Swarmandal`},
- {cat:"Theory", q:"Name a musical scale or mode", d:`
+ {cat:"Theory", q:"A musical scale or mode", d:`
 16 Major
 14 Minor
 6 Pentatonic
@@ -2337,8 +2235,33 @@ const CRATE = [
 1 Major Pentatonic
 1 Minor Pentatonic
 0.2 Neapolitan
-0.1 Enigmatic`},
- {cat:"60s", q:"Name a British Invasion band of the 1960s", d:`
+0.1 Enigmatic
+0.3 Persian
+0.3 Arabic|maqam
+0.3 Japanese|in scale|insen
+0.2 Yo
+0.4 Gypsy|hungarian gypsy
+0.4 Spanish|flamenco|spanish gypsy
+0.2 Prometheus
+0.3 Augmented
+0.1 Tritone
+0.4 Harmonic Major
+0.2 Egyptian
+0.3 Chinese
+0.2 Ukrainian Dorian|romanian minor
+0.2 Neapolitan Major
+0.2 Neapolitan Minor
+0.3 Hexatonic
+0.3 Heptatonic
+0.2 Overtone|acoustic
+0.3 Raga
+0.2 Slendro
+0.2 Pelog
+0.2 Iwato
+0.2 Kumoi
+0.3 Octave
+0.3 Diatonic`},
+ {cat:"60s", q:"A British Invasion band of the 1960s", d:`
 30 The Beatles|beatles
 18 The Rolling Stones|rolling stones|stones
 8 The Who|who
@@ -2363,61 +2286,31 @@ const CRATE = [
 0.3 Billy J. Kramer & the Dakotas|billy j kramer
 0.3 Wayne Fontana and the Mindbenders|the mindbenders
 0.2 The Swinging Blue Jeans
-0.2 The Tremeloes`},
- {cat:"2000s", q:"Name an emo or pop-punk band from the 2000s", d:`
-14 Fall Out Boy
-14 My Chemical Romance|mcr
-10 Paramore
-8 Blink-182|blink 182|blink
-5 Green Day
-6 Panic! at the Disco|panic at the disco
-3 Sum 41
-3 Good Charlotte
-3 Simple Plan
-2 All Time Low
-1.5 Yellowcard
-2 Jimmy Eat World
-1.5 Dashboard Confessional
-1.5 Taking Back Sunday
-1 Brand New
-1 The Used|used
-1 New Found Glory
-0.4 Thursday
-1 Hawthorne Heights
-0.4 Saves the Day
-2 The All-American Rejects|all american rejects
-1 Boys Like Girls
-0.8 Mayday Parade
-0.6 We the Kings
-0.3 Cute Is What We Aim For
-0.4 Motion City Soundtrack
-0.3 The Academy Is...|the academy is
-0.4 Senses Fail
-0.3 Silverstein
-0.6 Underoath
-0.4 Alkaline Trio
-0.4 Story of the Year
-0.2 The Starting Line
-0.8 A Day to Remember
-0.2 Four Year Strong
-0.3 The Wonder Years
-0.6 Bowling for Soup
-0.4 Relient K
-0.3 Jack's Mannequin
-0.2 Something Corporate
-0.3 Hellogoodbye
-0.3 Escape the Fate
-0.6 Pierce the Veil
-0.4 Sleeping with Sirens
-1 Plain White T's|plain white ts
-0.4 Say Anything
-0.4 The Red Jumpsuit Apparatus|red jumpsuit apparatus
-0.2 Armor for Sleep
-0.3 Thrice
-0.3 Coheed and Cambria
-0.4 AFI
-0.4 Rise Against`},
- {cat:"Charts", q:"Name a song that hit #1 on the Billboard Hot 100 in 2000", d:`
+0.2 The Tremeloes
+0.3 The Pretty Things|pretty things
+0.2 The Merseybeats|merseybeats
+0.2 The Honeycombs|honeycombs
+0.2 The Fortunes|fortunes
+0.2 The Nashville Teens|nashville teens
+0.2 The Bachelors|bachelors
+0.1 Unit 4 + 2|unit four plus two
+0.1 The Applejacks
+0.1 The Rockin' Berries
+0.1 The Ivy League
+0.3 The Move|move
+0.2 The Creation
+0.3 Dave Dee, Dozy, Beaky, Mick & Tich|dave dee dozy beaky mick and tich
+0.2 The Mojos
+0.2 The Undertakers
+0.2 The Big Three`},
+ {cat:"2000s", q:"A Paramore studio album", d:`
+35 Riot!|riot
+20 Brand New Eyes
+15 After Laughter
+12 Paramore
+10 This Is Why
+8 All We Know Is Falling`},
+ {cat:"Charts", q:"A song that hit #1 on the Billboard Hot 100 in 2000", d:`
 10 Say My Name ~ Destiny's Child
 10 Independent Women Part I|independent women ~ Destiny's Child
 8 Maria Maria ~ Santana
@@ -2436,7 +2329,7 @@ const CRATE = [
 2 Everything You Want ~ Vertical Horizon
 2 Bent ~ Matchbox Twenty
 2 Doesn't Really Matter ~ Janet Jackson`},
- {cat:"Countries", q:"Name a musician from Japan", d:`
+ {cat:"Countries", q:"A musician from Japan", d:`
 8 Utada Hikaru|hikaru utada
 6 X Japan
 8 Babymetal
@@ -2487,8 +2380,117 @@ const CRATE = [
 0.4 Dreams Come True
 0.4 Mr. Children|mr children
 0.3 Southern All Stars
-0.6 Namie Amuro`},
- {cat:"Countries", q:"Name a musician from France", d:`
+0.6 Namie Amuro
+0.6 Misora Hibari
+0.6 Yumi Matsutoya|yuming|yumi arai
+0.4 Miyuki Nakajima
+0.3 Momoe Yamaguchi
+0.4 Seiko Matsuda
+0.4 Akina Nakamori
+0.3 Pink Lady
+0.2 Candies
+0.3 Yosui Inoue
+0.4 Tomoko Aran
+0.2 Junko Yagami
+0.3 Toshiki Kadomatsu
+0.4 Eiichi Ohtaki|eiichi otaki
+0.4 Happy End
+0.6 Isao Tomita|tomita
+0.6 Kitaro
+0.3 Susumu Hirasawa
+0.2 P-Model
+0.2 Plastics
+0.2 Jun Togawa
+0.6 Hiroshi Yoshimura
+0.4 Midori Takada
+0.4 Ryoji Ikeda
+0.4 Merzbow
+0.2 Keiji Haino
+0.2 Acid Mothers Temple
+0.3 Mono
+0.2 Envy
+0.2 Buck-Tick
+0.3 Luna Sea
+0.4 Dir En Grey
+0.3 The Gazette|the gazettE
+0.4 Hyde
+0.4 Gackt
+0.4 Miyavi
+0.4 Yoshiki
+0.3 hide
+0.3 Malice Mizer
+0.2 Coldrain
+0.3 Crossfaith
+0.6 Band-Maid|band maid
+0.4 Maximum the Hormone
+0.6 Asian Kung-Fu Generation|asian kung fu generation|ajikan
+0.3 Spitz
+0.4 The Blue Hearts
+0.4 The Pillows
+0.2 Supercar
+0.2 Quruli
+0.3 Sakanaction
+0.4 Bump of Chicken
+0.2 Zazen Boys
+0.6 Shiina Ringo|ringo sheena|tokyo jihen
+0.2 Cocco
+0.2 Chara
+0.2 UA
+0.3 Do As Infinity
+0.2 Every Little Thing
+0.2 Globe
+0.3 Tetsuya Komuro
+0.4 Koda Kumi
+0.3 Mika Nakashima
+0.2 Kana Nishino
+0.3 AI
+0.3 Misia
+0.3 Crystal Kay
+0.4 Gen Hoshino
+0.4 Aimyon
+0.6 Yorushika
+0.4 Zutomayo|zutto mayonaka de iinoni
+0.4 Eve
+0.3 Lilas Ikuta|ikura
+0.3 Awich
+0.3 Chanmina
+0.6 XG
+0.2 Daoko
+0.3 Capsule
+0.4 Yasutaka Nakata
+0.4 Momoiro Clover Z
+0.4 Morning Musume
+0.3 Nogizaka46
+0.2 Sakurazaka46|keyakizaka46
+0.2 KAT-TUN
+0.3 Snow Man
+0.2 King & Prince
+0.3 Kalafina
+0.6 Yoko Kanno
+0.3 Shiro Sagisu
+0.6 Koji Kondo
+0.8 Nobuo Uematsu
+0.4 Yoko Shimomura
+0.4 Akira Yamaoka
+0.4 Yuki Kajiura
+0.4 Hiroyuki Sawano
+0.3 Kenji Kawai
+0.3 Yukihiro Takahashi
+0.3 Toshiko Akiyoshi
+0.3 Sadao Watanabe
+0.4 Hiromi|hiromi uehara
+0.2 Makoto Ozone
+0.3 Ryo Fukui
+0.4 Casiopea
+0.3 T-Square
+0.4 Fishmans
+0.2 Shintaro Sakamoto
+0.4 Pizzicato Five
+0.2 Flipper's Guitar|flippers guitar
+0.2 Buffalo Daughter
+0.3 Cibo Matto
+0.2 Polysics`},
+ {cat:"Countries", q:"A musician from France", d:`
 14 Édith Piaf|edith piaf|piaf
 10 Daft Punk
 8 Serge Gainsbourg|gainsbourg
@@ -2534,84 +2536,108 @@ const CRATE = [
 1 Claude Debussy|debussy
 1 Maurice Ravel|ravel
 0.6 Erik Satie|satie
-0.6 Georges Bizet|bizet`},
- {cat:"Film", q:"Name a film score composer", d:`
-25 John Williams
-22 Hans Zimmer
-8 Ennio Morricone
-4 Howard Shore
-4 James Horner
-4 Danny Elfman
-3 Bernard Herrmann
-2 Jerry Goldsmith
-2 Alan Silvestri
-1.5 Thomas Newman
-1.5 Alexandre Desplat
-2 Michael Giacchino
-2 Ludwig Göransson|ludwig goransson
-1 Hildur Guðnadóttir|hildur gudnadottir
-2 Joe Hisaishi
-1.5 Vangelis
-0.6 Max Steiner
-1 Henry Mancini
-1 John Barry
-0.6 Elmer Bernstein
-0.6 Nino Rota
-0.4 Maurice Jarre
-1 Trent Reznor
-0.6 Atticus Ross
-0.8 Jonny Greenwood
-0.6 Clint Mansell
-0.3 Mica Levi
-1 Justin Hurwitz
-1.5 Ramin Djawadi
-0.3 Rachel Portman
-0.3 Gabriel Yared
-0.6 Philip Glass
-0.6 Ryuichi Sakamoto
-0.6 Harry Gregson-Williams
-0.6 John Powell
-0.6 James Newton Howard
-0.4 Carter Burwell
-0.4 Basil Poledouris
-0.3 Dario Marianelli
-0.6 Nicholas Britell
-0.4 Bear McCreary
-0.4 Jóhann Jóhannsson|johann johannsson
-0.4 Michael Nyman
-0.4 Mark Mothersbaugh
-0.6 Junkie XL|tom holkenborg`},
- {cat:"Soul", q:"Name an Aretha Franklin song", d:`
-40 Respect
-12 (You Make Me Feel Like) A Natural Woman|natural woman|a natural woman|you make me feel like a natural woman
-8 Think
-6 Chain of Fools
-4 I Say a Little Prayer
-0.6 Day Dreaming
-1.5 Freeway of Love
-0.6 Rock Steady
-1 Ain't No Way
-0.6 Until You Come Back to Me (That's What I'm Gonna Do)|until you come back to me
-0.6 Spanish Harlem
-1 I Never Loved a Man (The Way I Love You)|i never loved a man
-0.6 Do Right Woman, Do Right Man|do right woman
-0.6 Baby I Love You
-0.3 The House That Jack Built
-1 Bridge Over Troubled Water
-0.8 Who's Zoomin' Who|whos zoomin who
-1.5 Sisters Are Doin' It for Themselves|sisters are doing it for themselves
-1 I Knew You Were Waiting (For Me)|i knew you were waiting
-0.4 Jump to It
-1 Amazing Grace
-0.2 Share Your Love with Me
-0.3 Since You've Been Gone (Sweet Sweet Baby)|since youve been gone
-0.2 Don't Play That Song
-0.3 Angel
-0.2 Call Me
-0.4 Young, Gifted and Black|young gifted and black
-0.3 Precious Lord
-0.3 Mary Don't You Weep
-0.3 A Rose Is Still a Rose`}
+0.6 Georges Bizet|bizet
+0.6 Georges Brassens
+0.3 Léo Ferré|leo ferre
+0.3 Barbara
+0.4 Juliette Gréco|juliette greco
+0.3 Boris Vian
+1 Django Reinhardt
+0.6 Stéphane Grappelli|stephane grappelli
+1 Michel Legrand
+0.4 Michel Petrucciani
+0.3 Jean-Luc Ponty
+0.3 Gilbert Bécaud|gilbert becaud
+0.4 Mireille Mathieu
+0.6 Joe Dassin
+0.3 Michel Sardou
+0.4 Jean-Jacques Goldman
+0.3 Francis Cabrel
+0.2 Alain Souchon
+0.3 Renaud
+0.3 Étienne Daho|etienne daho
+0.3 Alain Bashung
+0.4 Patricia Kaas
+0.3 Benjamin Biolay
+0.4 Camille
+0.3 Vianney
+0.4 Louane
+0.2 Christophe Maé|christophe mae
+0.2 Calogero
+0.3 -M-|m|matthieu chedid
+0.2 Thomas Dutronc
+0.4 Jain
+0.4 Clara Luciani
+0.3 Pomme
+0.3 Zaho de Sagazan
+0.6 Gims|maitre gims|maître gims
+0.3 Soprano
+0.4 Jul
+0.4 Nekfeu
+0.3 SCH
+0.4 Ninho
+0.3 Gazo
+0.2 Niska
+0.3 Sexion d'Assaut|sexion dassaut
+0.4 NTM|supreme ntm|suprême ntm
+0.3 Oxmo Puccino
+0.4 Diam's|diams
+0.2 Kery James
+0.3 Lomepal
+0.3 Bigflo & Oli|bigflo et oli
+0.4 Laurent Garnier
+0.6 Martin Solveig
+0.2 Étienne de Crécy|etienne de crecy
+0.4 Mr. Oizo|mr oizo
+0.3 SebastiAn
+0.3 Breakbot
+0.2 Busy P|pedro winter
+0.4 Carpenter Brut
+0.4 Perturbator
+0.6 Gesaffelstein
+0.6 Madeon
+0.4 Petit Biscuit
+0.4 Polo & Pan|polo and pan
+0.4 L'Impératrice|limperatrice
+0.4 St Germain|saint germain
+0.4 Thomas Bangalter
+0.3 Guy-Manuel de Homem-Christo
+0.4 Cerrone
+0.3 Magma
+0.3 Louise Attaque
+0.4 Les Rita Mitsouko|rita mitsouko
+0.3 Mano Negra
+0.3 Alcest
+0.3 Héloïse Letissier|heloise letissier
+0.4 Charlotte Gainsbourg
+0.4 Maurice Chevalier
+0.2 Mistinguett
+0.6 Josephine Baker|joséphine baker
+0.2 Tino Rossi
+0.2 Line Renaud
+0.6 Hector Berlioz|berlioz
+0.6 Camille Saint-Saëns|saint-saens|saint saens
+0.4 Gabriel Fauré|faure|fauré
+0.3 Charles Gounod|gounod
+0.3 Jules Massenet|massenet
+0.4 Jacques Offenbach|offenbach
+0.3 Francis Poulenc|poulenc
+0.4 Olivier Messiaen|messiaen
+0.3 Pierre Boulez|boulez
+0.4 Jean-Philippe Rameau|rameau
+0.3 François Couperin|couperin
+0.3 Paul Dukas|dukas
+0.2 Darius Milhaud|milhaud
+0.2 Léo Delibes|delibes
+0.2 Lili Boulanger
+0.3 Nadia Boulanger
+0.2 Cécile Chaminade|chaminade`},
+ {cat:"Soul", q:"A member of the Temptations' “Classic Five” lineup", d:`
+30 David Ruffin
+25 Eddie Kendricks|eddie kendrick
+20 Otis Williams
+15 Melvin Franklin
+10 Paul Williams`}
 ];
 
 // ---------- data prep ----------
