@@ -109,6 +109,11 @@ input[type=text]:focus { border-color: var(--ink); }
 .timebar .fill.low { background: var(--accent); }
 .share { width: 100%; margin: 0; padding: 14px 16px; background: var(--bg); border: 1px dashed var(--line); border-radius: 10px;
   font: 500 0.9rem/1.6 var(--f-mono); text-align: left; white-space: pre-wrap; overflow-wrap: anywhere; }
+.rules { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--muted); }
+.rules li { padding-left: 18px; position: relative; }
+.rules li::before { content: "♪"; position: absolute; left: 0; color: var(--accent); }
+.rules b { color: var(--ink); font-weight: 700; }
+.big-btn { font-size: 1.05rem; padding: 14px 26px; }
 .err { color: var(--accent); font-size: 0.9rem; min-height: 1.35em; margin: -10px 0 0; }
 
 .result { display: flex; flex-direction: column; gap: 16px; }
@@ -3485,6 +3490,7 @@ function render() {
   if (game.i >= 7) return renderFinal();
   const p = CRATE[game.set[game.i]];
   if (game.revealed) return renderReveal(p, game.picks[game.i]);
+  if (!game.started && !game.picks.length && !game.deadline) return renderStart();
   $("stage").innerHTML = `
     <div class="meta"><span>Side ${SLOT[game.i][0]} · Track ${SLOT[game.i]} · <span class="cat">${p.cat}</span></span><span class="clock" id="clock" role="timer" aria-label="Time left">0:${LIMIT}</span></div>
     <div class="timebar"><div class="fill" id="bar"></div></div>
@@ -3520,6 +3526,22 @@ function render() {
     commit(a ? { input: v, name: a.name, pct: a.pct, pts: a.pts, tier: a.tier, timeout: true }
              : { input: v, name: null, pct: 0, pts: 0, tier: "miss", timeout: true });
   });
+}
+
+function renderStart() {
+  const daily = game.mode === "daily";
+  $("stage").innerHTML = `
+    <div class="meta"><span>${daily ? "DCZ-" + String(game.no).padStart(4, "0") + " · Today's setlist" : "Jam session · Random setlist"}</span><span>7 tracks</span></div>
+    <h2 class="q">${daily ? "Today's record is on the turntable." : "A fresh record, just for practice."}</h2>
+    <ul class="rules">
+      <li><b>One answer per track.</b> Any correct answer scores.</li>
+      <li><b>Rarer is better.</b> The fewer listeners who'd name it, the more points, up to 100 a track.</li>
+      <li><b>30 seconds a track.</b> The clock starts when you press play.</li>
+      <li><b>One hint per track</b> if you're stuck. It halves that track's points.</li>
+    </ul>
+    <div><button class="btn primary big-btn" id="play" type="button">▶ Press play</button></div>`;
+  $("play").focus({ preventScroll: true });
+  $("play").addEventListener("click", () => { game.started = true; save(); render(); });
 }
 
 function commit(pick) {
